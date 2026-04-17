@@ -74,30 +74,27 @@ describe("Branches - CRUD Operations", () => {
       branchesPage.assertBranchExists(updatedBranch.displayName);
     });
   });
+
   // // Test suite: Delete
-  // describe("Delete Branch", () => {
-  //   it("should delete a branch successfully", () => {
-  //     // Visit branches page
-  //     branchesPage.visit();
+  describe("Delete Branch", () => {
+    it("should delete a branch successfully", function () {
+      cy.intercept("DELETE", "**/api/admin/branches/**").as("deleteBranch");
 
-  //     // Select the branch to delete
-  //     const branchToDelete = cy
-  //       .wrap("@branchData")
-  //       .invoke("get", "newBranch").displayName;
-  //     branchesPage.getRowByDisplayName(branchToDelete).then(($row) => {
-  //       if ($row.length) {
-  //         branchesPage.openActionMenu(branchToDelete);
+      const branchToDelete = this.branchData.newBranch.displayName;
 
-  //         // Verify success message
-  //         cy.contains(
-  //           "div.toast-container",
-  //           branchesPage.assertions.deleteMessage,
-  //         ).should("be.visible");
+      branchesPage.visit();
 
-  //         // Verify branch no longer exists
-  //         branchesPage.assertBranchNotExists(branchToDelete);
-  //       }
-  //     });
-  //   });
-  // });
+      branchesPage.openDeleteForBranch(branchToDelete);
+
+      branchesPage.assertDeleteModalVisible();
+
+      branchesPage.confirmDelete();
+
+      cy.wait("@deleteBranch").its("response.statusCode").should("eq", 200);
+
+      cy.get("body").should("contain.text", this.branchData.deleteMessage);
+
+      // branchesPage.assertBranchNotExists(branchToDelete);
+    });
+  });
 });

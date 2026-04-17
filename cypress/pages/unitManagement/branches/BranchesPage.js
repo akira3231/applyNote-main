@@ -48,6 +48,34 @@ class BranchesPage {
       .click({ force: true });
   }
 
+  openDeleteForBranch(displayName) {
+    cy.contains("tbody tr", displayName)
+      .should("be.visible")
+      .within(() => {
+        cy.get('button[aria-haspopup="menu"]').click({ force: true });
+      });
+
+    cy.contains('[role="menuitem"], div', /delete branch/i)
+      .should("be.visible")
+      .click({ force: true });
+  }
+
+  confirmDelete() {
+    cy.contains("button", "Delete").should("be.visible").click({ force: true });
+  }
+
+  cancelDelete() {
+    cy.contains("button", "Cancel").should("be.visible").click({ force: true });
+  }
+
+  assertDeleteModalVisible() {
+    cy.contains("h2", /delete branch/i).should("be.visible");
+  }
+
+  assertBranchNotExists(displayName) {
+    cy.contains("tbody tr", displayName).should("not.exist");
+  }
+
   toggleStatus(displayName) {
     this.getRowByDisplayName(displayName).find('button[role="switch"]').click();
   }
