@@ -5,7 +5,7 @@
     "email": "lalitpur@applynote.com",
     "phone": "9812345678",
     "country": "Argentina",
-    "currency": "NPR",
+    "currency": "ARS",
     "commissionRate": 5,
     "state": "Bagmati",
     "city": "Lalitpur"
@@ -18,8 +18,8 @@
     "phone": "9840443699",
     "city": "Mardan",
     "state": "Peshawar",
-    "country": "Russia",
-    "currency": "USD",
+    "country": "Nepal",
+    "currency": "NPR",
     "commissionRate": 10
   },
 
