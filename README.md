@@ -15,10 +15,10 @@ npm list --depth=0  # View top-level packages only
 
 # 5. Create .env file for credentials
 touch .env
-# Edit .env and add:
-# GMAIL_USER=your-email@gmail.com
-# GMAIL_PASSWORD=your-app-password
-# etc.
+ Edit .env and add:
+ GMAIL_USER=your-email@gmail.com
+ GMAIL_PASSWORD=your-app-password
+ etc.
 
 # 6. Run tests
 npx cypress run
