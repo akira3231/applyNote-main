@@ -1,0 +1,29 @@
+{
+  "newBranch": {
+    "displayName": "New Lalitpur Branch",
+    "legalName": "Lalitpur Education Hub Pvt. Ltd.",
+    "email": "lalitpur@applynote.com",
+    "phone": "9812345678",
+    "country": "Argentina",
+    "currency": "NPR",
+    "commissionRate": 5,
+    "state": "Bagmati",
+    "city": "Lalitpur"
+  },
+
+  "updatedBranch": {
+    "displayName": "Townhall Branch Updated",
+    "legalName": "Apply Note Town Hall Pvt. Ltd.",
+    "email": "townhall-updated@applynote.com",
+    "phone": "9840443699",
+    "city": "Mardan",
+    "state": "Peshawar",
+    "country": "Russia",
+    "currency": "USD",
+    "commissionRate": 10
+  },
+
+  "successMessage": "Branch created successfully",
+  "updateMessage": "Branch updated successfully",
+  "deleteMessage": "Branch deleted successfully"
+}
