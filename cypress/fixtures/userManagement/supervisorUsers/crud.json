@@ -1,0 +1,31 @@
+{
+  "newSupervisorUser": {
+    "firstName": "QA Test",
+    "lastName": "User",
+    "email": "qa.test.user@applynote.com",
+    "phone": "9812345678",
+    "designation": "QA Manager",
+    "dateOfBirth": "2000-06-15",
+    "gender": "Male",
+    "country": "Nepal",
+    "state": "Bagmati",
+    "city": "Kathmandu"
+  },
+
+  "updatedSupervisorUser": {
+    "firstName": "QA Test Updated",
+    "lastName": "User Updated",
+    "email": "qa.test.updated@applynote.com",
+    "phone": "9840443699",
+    "designation": "QA Associate",
+    "country": "Kenya",
+    "state": "Bagmati",
+    "dateOfBirth": "1995-06-15",
+    "gender": "Female",
+    "city": "Lalitpur"
+  },
+
+  "successMessage": "Supervisor user created successfully",
+  "updateMessage": "Supervisor user updated successfully",
+  "deleteMessage": "Supervisor user deleted successfully"
+}
