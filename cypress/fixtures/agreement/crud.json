@@ -1,0 +1,30 @@
+{
+  "newAgreement": {
+    "institution": "University of Melbourne",
+    "invoicingName": "Melbourne University Agreement",
+    "countries": ["Nepal", "Australia"],
+    "startDate": "2025-01-01",
+    "endDate": "2026-12-31",
+    "blacklist": false,
+    "comments": "QA Test Agreement",
+    "commissionType": "flat",
+    "commissionAmount": 10,
+    "attachments": ["cypress/fixtures/files/kuibit_ET.pdf"]
+  },
+
+  "updatedAgreement": {
+    "institution": "University of Sydney",
+    "invoicingName": "Sydney University Agreement Updated",
+    "countries": ["Nepal"],
+    "startDate": "2025-06-01",
+    "endDate": "2027-06-30",
+    "blacklist": false,
+    "comments": "QA Test Agreement Updated",
+    "commissionType": "progressive",
+    "commissionAmount": 5
+  },
+
+  "successMessage": "Agreement created successfully",
+  "updateMessage": "Agreement updated successfully",
+  "deleteMessage": "Agreement deleted successfully"
+}

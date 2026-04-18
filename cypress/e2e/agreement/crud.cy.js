@@ -1,0 +1,102 @@
+const AgreementsPage = require("../../pages/agreement/AgreementsPage.js");
+const AddAgreementModalPage = require("../../pages/agreement/AddAgreementsModalPage.js");
+// const EditAgreementModalPage = require("../../pages/agreement/EditAgreementsModalPage.js");
+
+describe("Agreements - CRUD Operations", () => {
+  let agreementsPage;
+  let addAgreementModal;
+  let editAgreementModal;
+
+  beforeEach(() => {
+    cy.fixture("/agreement/crud.json").as("agreementData");
+  });
+
+  agreementsPage = new AgreementsPage();
+  addAgreementModal = new AddAgreementModalPage();
+  // editAgreementModal = new EditAgreementModalPage();
+
+  // // Test suite: Read
+  // describe("Read Agreements", () => {
+  //   it("should fetch agreements from API and display them correctly", () => {
+  //     cy.intercept("POST", "**/api/admin/agreements/**").as("getAgreements");
+
+  //     agreementsPage.visit();
+
+  //     cy.wait("@getAgreements").then((interception) => {
+  //       const body = interception.response.body;
+
+  //       const data = body.data || body.results || body.agreements || [];
+
+  //       const apiCount = body.count || data.length;
+
+  //       agreementsPage.assertRecordState(apiCount);
+  //     });
+  //   });
+  // });
+
+  // Test suite: Create
+  describe("Create Agreement", () => {
+    it("should create a new agreement successfully", function () {
+      const newAgreement = this.agreementData.newAgreement;
+      cy.intercept("POST", "**/api/admin/agreements/**").as("createAgreement");
+
+      agreementsPage.visit();
+      agreementsPage.clickAddAgreement();
+
+      addAgreementModal.fillForm(this.agreementData.newAgreement);
+      addAgreementModal.submit();
+
+      cy.wait("@createAgreement").its("response.statusCode").should("eq", 200);
+
+      cy.get("body").should("contain.text", this.agreementData.successMessage);
+
+      agreementsPage.searchTable(newAgreement.displayName);
+      agreementsPage.assertExists(newAgreement.displayName);
+    });
+  });
+
+  // // Test suite: Update
+  // describe("Update Agreement", () => {
+  //   it("should update first available agreement", function () {
+  //     const updatedAgreement = this.agreementData.updatedAgreement;
+
+  //     cy.intercept("POST", "**/api/admin/agreements/**").as("updateAgreement");
+
+  //     agreementsPage.visit();
+
+  //     agreementsPage.editFirstRow();
+
+  //     editAgreementModal.assertModalIsOpen();
+  //     editAgreementModal.fillForm(updatedAgreement);
+  //     editAgreementModal.submit();
+
+  //     cy.wait("@updateAgreement").its("response.statusCode").should("eq", 200);
+  //     cy.get("body").should("contain.text", this.agreementData.updateMessage);
+
+  //     // Verify updated values in the list (basic check using display name)
+  //     agreementsPage.searchTable(updatedAgreement.displayName);
+  //     agreementsPage.assertExists(updatedAgreement.displayName);
+  //   });
+  // });
+
+  // // // Test suite: Delete
+  // describe("Delete Agreement", () => {
+  //   it("should delete an agreement successfully", function () {
+  //     cy.intercept("DELETE", "**/api/admin/agreements/**").as(
+  //       "deleteAgreement",
+  //     );
+
+  //     agreementsPage.visit();
+  //     agreementsPage.deleteFirstRow();
+  //     agreementsPage.assertDeleteModalVisible("Agreement");
+
+  //     agreementsPage.confirmDelete();
+
+  //     cy.wait("@deleteAgreement").its("response.statusCode").should("eq", 200);
+
+  //     cy.get("body").should("contain.text", this.agreementData.deleteMessage);
+
+  //     // agreementsPage.assertAgreementNotExists(agreementToDelete);
+  //   });
+  // });
+});
