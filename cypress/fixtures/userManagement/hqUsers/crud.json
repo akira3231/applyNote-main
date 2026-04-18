@@ -1,0 +1,28 @@
+{
+  "newHqUser": {
+    "firstName": "QA Test",
+    "lastName": "User",
+    "email": "qa.test.user@applynote.com",
+    "phone": "9812345678",
+    "designation": "QA Manager",
+    "country": "Nepal",
+    "state": "Bagmati",
+    "city": "Kathmandu"
+  },
+
+  "updatedHqUser": {
+    "firstName": "QA Test Updated",
+    "lastName": "User Updated",
+    "email": "qa.test.updated@applynote.com",
+    "phone": "9840443699",
+    "designation": "QA Associate",
+    "country": "Argentina",
+    "state": "Bagmati",
+    "dateOfBirth": "1995-06-15",
+    "city": "Lalitpur"
+  },
+
+  "successMessage": "Hq User created successfully",
+  "updateMessage": "Hq User updated successfully",
+  "deleteMessage": "Hq User deleted successfully"
+}
