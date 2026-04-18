@@ -18,3 +18,11 @@ logs/
 # Build directories
 dist/
 build/
+
+# Allure results
+allure-results/
+allure-report/
+
+# Cypress artifacts
+cypress/screenshots/
+cypress/videos/

@@ -25,13 +25,13 @@ module.exports = {
     specPattern: "cypress/e2e/**/*.{cy.js,cy.ts}",
 
     setupNodeEvents(on, config) {
-
       // ================= ALLURE (REQUIRED) =================
       allureWriter(on, config);
 
       // ================= ENV =================
-      config.env.EMAIL = process.env.EMAIL;
-      config.env.PASSWORD = process.env.PASSWORD;
+      // config.env.EMAIL = process.env.EMAIL;
+      config.env.BASE_URL = process.env.BASE_URL;
+      config.env.GMAIL_PASSWORD = process.env.GMAIL_PASSWORD;
       config.env.GMAIL_USER = process.env.GMAIL_USER;
       config.env.GMAIL_APP_PASSWORD = process.env.GMAIL_APP_PASSWORD;
 
@@ -54,7 +54,7 @@ module.exports = {
 
             const messages = await connection.search(
               [["SINCE", new Date(Date.now() - 30 * 60 * 1000)]],
-              { bodies: ["HEADER", "TEXT", ""], markSeen: false }
+              { bodies: ["HEADER", "TEXT", ""], markSeen: false },
             );
 
             connection.end();
@@ -66,7 +66,7 @@ module.exports = {
             let headers = {};
             let body = "";
 
-            msg.parts.forEach(part => {
+            msg.parts.forEach((part) => {
               if (part.which === "HEADER") headers = part.body;
               if (part.which === "TEXT" || part.which === "") body += part.body;
             });
@@ -77,7 +77,6 @@ module.exports = {
               body,
               date: headers.date?.[0] || "",
             };
-
           } catch (err) {
             console.error("❌ Email error:", err.message);
             return null;
