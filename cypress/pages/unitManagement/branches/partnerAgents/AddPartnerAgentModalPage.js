@@ -1,4 +1,4 @@
-class AddPartnerAgentsModalPage {
+class AddPartnerAgentModalPage {
   get modalTitle() {
     return cy.contains("h2, .modal-title", "Add Partner Agent");
   }
@@ -102,4 +102,4 @@ class AddPartnerAgentsModalPage {
   }
 }
 
-module.exports = AddPartnerAgentsModalPage;
+module.exports = AddPartnerAgentModalPage;
