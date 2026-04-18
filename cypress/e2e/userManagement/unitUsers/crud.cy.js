@@ -8,6 +8,7 @@ describe("UnitUsers - CRUD Operations", () => {
   let editUnitUserModal;
 
   beforeEach(() => {
+    cy.loginWithSession();
     cy.fixture("/userManagement/unitUsers/crud.json").as("unitUserData");
     unitUsersPage = new UnitUsersPage();
     addUnitUserModal = new AddUnitUsersModalPage();

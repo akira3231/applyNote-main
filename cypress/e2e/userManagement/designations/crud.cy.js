@@ -8,6 +8,7 @@ describe("Designations - CRUD Operations", () => {
   let editDesignationModal;
 
   beforeEach(() => {
+    cy.loginWithSession();
     cy.fixture("/userManagement/designations/crud.json").as("designationData");
     designationsPage = new DesignationsPage();
     addDesignationModal = new AddDesignationsModalPage();

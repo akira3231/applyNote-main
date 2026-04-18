@@ -8,6 +8,7 @@ describe("Schools - CRUD Operations", () => {
   let editSchoolModal;
 
   beforeEach(() => {
+    cy.loginWithSession();
     cy.fixture("/unitManagement/schools/crud.json").as("schoolData");
   });
 
