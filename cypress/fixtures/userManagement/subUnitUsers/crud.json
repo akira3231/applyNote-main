@@ -1,0 +1,37 @@
+{
+  "newSubUnitUser": {
+    "firstName": "QA Test",
+    "lastName": "User",
+    "designation": "QA Manager",
+    "branchUnit": "Perth Branch",
+    "subUnit": "Perth Partner Agent",
+    "commissionRate": 10,
+    "email": "qa.test.user@applynote.com",
+    "phone": "9812345678",
+    "gender": "Male",
+    "dateOfBirth": "1990-01-01",
+    "country": "Nepal",
+    "state": "Bagmati",
+    "city": "Kathmandu"
+  },
+
+  "updatedSubUnitUser": {
+    "firstName": "QA Test Updated",
+    "lastName": "User Updated",
+    "email": "qa.test.updated@applynote.com",
+    "phone": "9840443699",
+    "commissionRate": 15,
+    "designation": "Unit Manager",
+    "branchUnit": "Melbourne Branch",
+    "subUnit": "Test Partner agent",
+    "country": "Argentina",
+    "state": "Bagmati",
+    "dateOfBirth": "1995-06-15",
+    "gender": "Female",
+    "city": "Lalitpur"
+  },
+
+  "successMessage": "Sub Unit Employee created successfully",
+  "updateMessage": "Sub Unit Employee updated successfully",
+  "deleteMessage": "Sub Unit Employee deleted successfully"
+}
