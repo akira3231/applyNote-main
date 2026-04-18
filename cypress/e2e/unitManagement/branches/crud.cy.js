@@ -8,6 +8,7 @@ describe("Branches - CRUD Operations", () => {
   let editBranchModal;
 
   beforeEach(() => {
+    cy.loginWithSession();
     cy.fixture("/unitManagement/branches/crud.json").as("branchData");
   });
 

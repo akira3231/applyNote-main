@@ -9,6 +9,7 @@ describe("Partner Agents - CRUD Operations", () => {
   let editPartnerAgentsModal;
   let branchesPage;
   beforeEach(() => {
+    cy.loginWithSession();
     cy.fixture("/unitManagement/branches/partnerAgents/crud.json").as(
       "partnerAgentData",
     );

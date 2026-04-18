@@ -8,6 +8,7 @@ describe("SupervisorUsers - CRUD Operations", () => {
   let editSupervisorUserModal;
 
   beforeEach(() => {
+    cy.loginWithSession();
     cy.fixture("/userManagement/supervisorUsers/crud.json").as(
       "supervisorUserData",
     );

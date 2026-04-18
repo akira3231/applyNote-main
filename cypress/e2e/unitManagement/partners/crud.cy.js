@@ -8,6 +8,7 @@ describe("Partners - CRUD Operations", () => {
   let editPartnerModal;
 
   beforeEach(() => {
+    cy.loginWithSession();
     cy.fixture("/unitManagement/partners/crud.json").as("partnerData");
   });
 

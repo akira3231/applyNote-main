@@ -8,6 +8,7 @@ describe("HqUsers - CRUD Operations", () => {
   let editHqUserModal;
 
   beforeEach(() => {
+    cy.loginWithSession();
     cy.fixture("/userManagement/hqUsers/crud.json").as("hqUserData");
     hqUsersPage = new HqUsersPage();
     addHqUserModal = new AddHqUsersModalPage();
