@@ -1,0 +1,15 @@
+{
+  "newDesignation": {
+    "name": "QA Designation",
+    "eligibleForCommission": true
+  },
+
+  "updatedDesignation": {
+    "name": "QA Designation Updated",
+    "eligibleForCommission": false
+  },
+
+  "successMessage": "Designation created successfully",
+  "updateMessage": "Designation updated successfully",
+  "deleteMessage": "Designation deleted successfully"
+}

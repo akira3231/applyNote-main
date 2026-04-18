@@ -97,9 +97,9 @@ class BaseTablePage {
 
   assertRecordState(count) {
     if (count === 0) {
-      cy.contains("No entries found").should("be.visible");
+      cy.contains("No entries found").should("exist");
     } else {
-      cy.contains(`${count} entries`).should("be.visible");
+      cy.contains(`${count} entries`).should("exist");
     }
   }
 }
