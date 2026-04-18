@@ -15,10 +15,10 @@ jobs:
       contents: write
 
     env:
-      EMAIL: ${{ secrets.EMAIL }}
-      PASSWORD: ${{ secrets.PASSWORD }}
+      GMAIL_PASSWORD: ${{ secrets.GMAIL_PASSWORD }}
       GMAIL_USER: ${{ secrets.GMAIL_USER }}
       GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+      BASE_URL: ${{ secrets.BASE_URL }}
 
     steps:
       - name: Checkout repository
@@ -51,10 +51,9 @@ jobs:
         run: |
           touch .env
           echo "GMAIL_USER=${{ secrets.GMAIL_USER }}" >> .env
-          echo "GMAIL_PASSWORD=${{ secrets.GMAIL_APP_PASSWORD }}" >> .env
+          echo "GMAIL_PASSWORD=${{ secrets.GMAIL_PASSWORD }}" >> .env
           echo "BASE_URL=${{ secrets.BASE_URL }}" >> .env
-          echo "EMAIL=${{ secrets.GMAIL_USER }}" >> .env
-          echo "PASSWORD=${{ secrets.GMAIL_PASSWORD }}" >> .env
+          echo "GMAIL_APP_PASSWORD=${{ secrets.GMAIL_APP_PASSWORD }}" >> .env
 
       # ================= RUN TESTS =================
       - name: Run Cypress tests
