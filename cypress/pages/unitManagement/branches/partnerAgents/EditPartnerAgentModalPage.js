@@ -1,4 +1,4 @@
-class EditPartnerAgentsModalPage {
+class EditPartnerAgentModalPage {
   get modalTitle() {
     return cy.contains(
       "h2, .modal-title",
@@ -155,4 +155,4 @@ class EditPartnerAgentsModalPage {
   }
 }
 
-module.exports = EditPartnerAgentsModalPage;
+module.exports = EditPartnerAgentModalPage;
