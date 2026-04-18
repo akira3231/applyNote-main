@@ -1,7 +1,7 @@
 const BaseTablePage = require("../../common/BaseTablePage");
 
 class SchoolsPage extends BaseTablePage {
-  get addPartnerBtn() {
+  get addSchoolBtn() {
     return cy.contains("button", "Add School");
   }
 
@@ -12,7 +12,7 @@ class SchoolsPage extends BaseTablePage {
   }
 
   clickAddSchool() {
-    this.addPartnerBtn.click();
+    this.addSchoolBtn.click();
   }
 
   editFirstSchool() {
