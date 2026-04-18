@@ -1,4 +1,4 @@
-const PartnerAgentsPage = require("../../../../pages/unitManagement/branches/partnerAgents/partnerAgentsPage.js");
+const PartnerAgentsPage = require("../../../../pages/unitManagement/branches/partnerAgents/PartnerAgentsPage.js");
 const AddPartnerAgentsModalPage = require("../../../../pages/unitManagement/branches/partnerAgents/AddPartnerAgentModalPage.js");
 const EditPartnerAgentsModalPage = require("../../../../pages/unitManagement/branches/partnerAgents/EditPartnerAgentModalPage.js");
 const BranchesPage = require("../../../../pages/unitManagement/branches/BranchesPage.js");
