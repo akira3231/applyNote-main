@@ -1,0 +1,29 @@
+{
+    "newPartnerAgent": {
+        "displayName": "New Partner Agent",
+        "legalName": "Partner Agent Pvt Ltd",
+        "email": "agent@applynote.com",
+        "phone": "9800000000",
+        "currency": "BTN",
+        "commissionRate": 5,
+        "country": "Bhutan",
+        "state": "Thimphu",
+        "city": "Thimphu"
+    },
+
+    "updatedPartnerAgent": {
+        "displayName": "Updated Partner Agent",
+        "legalName": "Updated Partner Pvt Ltd",
+        "email": "updated@applynote.com",
+        "phone": "9811111111",
+        "currency": "NPR",
+        "commissionRate": 10,
+        "country": "Nepal",
+        "state": "Bagmati",
+        "city": "Kathmandu"
+    },
+
+    "successMessage": "PartnerAgent created successfully",
+    "updateMessage": "PartnerAgent updated successfully",
+    "deleteMessage": "PartnerAgent deleted successfully"
+}
