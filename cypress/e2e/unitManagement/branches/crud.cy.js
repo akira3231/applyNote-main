@@ -3,13 +3,17 @@ const AddBranchModalPage = require("../../../pages/unitManagement/branches/AddBr
 const EditBranchModalPage = require("../../../pages/unitManagement/branches/EditBranchModalPage.js");
 
 describe("Branches - CRUD Operations", () => {
+  let branchesPage;
+  let addBranchModal;
+  let editBranchModal;
+
   beforeEach(() => {
     cy.fixture("/unitManagement/branches/crud.json").as("branchData");
   });
 
-  const branchesPage = new BranchesPage();
-  const addBranchModal = new AddBranchModalPage();
-  const editBranchModal = new EditBranchModalPage();
+  branchesPage = new BranchesPage();
+  addBranchModal = new AddBranchModalPage();
+  editBranchModal = new EditBranchModalPage();
 
   // Test suite: Read
   describe("Read Branches", () => {
