@@ -62,7 +62,7 @@ jobs:
          rm -rf allure-results
           mkdir -p allure-results
           # Target all nested folders in e2e
-          npx cypress run --browser edge --spec "cypress/e2e/**/*.cy.js"
+          npx cypress run --browser chrome --spec "cypress/e2e/**/*.cy.js"
         continue-on-error: true
 
       # ================= DEBUG (OPTIONAL BUT USEFUL) =================
