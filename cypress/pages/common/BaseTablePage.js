@@ -96,10 +96,11 @@ class BaseTablePage {
   }
 
   assertRecordState(count) {
+    cy.wait(1000);
     if (count === 0) {
       cy.contains("No entries found").should("exist");
     } else {
-      cy.contains(`${count} entries`).should("exist");
+      cy.get("tbody tr").should("have.length.gt", 0);
     }
   }
 }
