@@ -1,0 +1,27 @@
+{
+  "newSchool": {
+    "displayName": "New Lalitpur School",
+    "legalName": "Lalitpur Education Hub Pvt. Ltd.",
+    "email": "lalitpur@applynote.com",
+    "phone": "9812345678",
+    "country": "Argentina",
+    "commissionPoint": 5,
+    "state": "Bagmati",
+    "city": "Lalitpur"
+  },
+
+  "updatedSchool": {
+    "displayName": "Townhall School Updated",
+    "legalName": "Apply Note Town Hall Pvt. Ltd.",
+    "email": "townhall-updated@applynote.com",
+    "phone": "9840443699",
+    "city": "Mardan",
+    "state": "Peshawar",
+    "country": "Nepal",
+    "commissionPoint": 10
+  },
+
+  "successMessage": "School created successfully",
+  "updateMessage": "School updated successfully",
+  "deleteMessage": "School deleted successfully"
+}
