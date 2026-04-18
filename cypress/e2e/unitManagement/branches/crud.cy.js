@@ -1,6 +1,6 @@
-import BranchesPage from "../../../pages/unitManagement/branches/BranchesPage.js";
-import AddBranchModalPage from "../../../pages/unitManagement/branches/AddBranchModalPage.js";
-import EditBranchModalPage from "../../../pages/unitManagement/branches/EditBranchModalPage.js";
+const BranchesPage = require("../../../pages/unitManagement/branches/BranchesPage.js");
+const AddBranchModalPage = require("../../../pages/unitManagement/branches/AddBranchModalPage.js");
+const EditBranchModalPage = require("../../../pages/unitManagement/branches/EditBranchModalPage.js");
 
 describe("Branches - CRUD Operations", () => {
   beforeEach(() => {
@@ -25,7 +25,7 @@ describe("Branches - CRUD Operations", () => {
 
         const apiCount = body.count || data.length;
 
-        branchesPage.assertRecordCount(apiCount);
+        branchesPage.assertRecordState(apiCount);
       });
     });
   });
@@ -46,8 +46,8 @@ describe("Branches - CRUD Operations", () => {
 
       cy.get("body").should("contain.text", this.branchData.successMessage);
 
-      branchesPage.search(newBranch.displayName);
-      branchesPage.assertBranchExists(newBranch.displayName);
+      branchesPage.searchTable(newBranch.displayName);
+      branchesPage.assertExists(newBranch.displayName);
     });
   });
 
@@ -60,7 +60,7 @@ describe("Branches - CRUD Operations", () => {
 
       branchesPage.visit();
 
-      branchesPage.editFirstBranch();
+      branchesPage.editFirstRow();
 
       editBranchModal.assertModalIsOpen();
       editBranchModal.fillForm(updatedBranch);
@@ -70,8 +70,8 @@ describe("Branches - CRUD Operations", () => {
       cy.get("body").should("contain.text", this.branchData.updateMessage);
 
       // Verify updated values in the list (basic check using display name)
-      branchesPage.search(updatedBranch.displayName);
-      branchesPage.assertBranchExists(updatedBranch.displayName);
+      branchesPage.searchTable(updatedBranch.displayName);
+      branchesPage.assertExists(updatedBranch.displayName);
     });
   });
 
@@ -80,13 +80,9 @@ describe("Branches - CRUD Operations", () => {
     it("should delete a branch successfully", function () {
       cy.intercept("DELETE", "**/api/admin/branches/**").as("deleteBranch");
 
-      const branchToDelete = this.branchData.newBranch.displayName;
-
       branchesPage.visit();
-
-      branchesPage.openDeleteForBranch(branchToDelete);
-
-      branchesPage.assertDeleteModalVisible();
+      branchesPage.deleteFirstRow();
+      branchesPage.assertDeleteModalVisible("Branch");
 
       branchesPage.confirmDelete();
 
