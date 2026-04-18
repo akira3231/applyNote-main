@@ -1,0 +1,35 @@
+{
+  "newUnitUser": {
+    "firstName": "QA Test",
+    "lastName": "User",
+    "designation": "QA Manager",
+    "unitType": "School",
+    "unitName": "New Lalitpur School",
+    "commissionRate": "10",
+    "email": "qa.test.user@applynote.com",
+    "phone": "9812345678",
+    "country": "Nepal",
+    "state": "Bagmati",
+    "city": "Kathmandu"
+  },
+
+  "updatedUnitUser": {
+    "firstName": "QA Test Updated",
+    "lastName": "User Updated",
+    "email": "qa.test.updated@applynote.com",
+    "phone": "9840443699",
+    "commissionRate": "15",
+    "designation": "QA Manager",
+    "unitType": "Branch",
+    "unitName": "Perth Branch",
+    "country": "Argentina",
+    "state": "Bagmati",
+    "dateOfBirth": "1995-06-15",
+    "gender": "Male",
+    "city": "Lalitpur"
+  },
+
+  "successMessage": "Unit Employee created successfully",
+  "updateMessage": "Unit Employee updated successfully",
+  "deleteMessage": "Unit Employee deleted successfully"
+}
