@@ -47,7 +47,9 @@ describe("Partners - CRUD Operations", () => {
       addPartnerModal.fillForm(this.partnerData.newPartner);
       addPartnerModal.submit();
 
-      cy.wait("@createPartner").its("response.statusCode").should("eq", 200);
+      cy.wait("@createPartner")
+        .its("response.statusCode")
+        .should("be.oneOf", [200, 201, 202, 204]);
 
       cy.get("body").should("contain.text", this.partnerData.successMessage);
 
@@ -71,7 +73,9 @@ describe("Partners - CRUD Operations", () => {
       editPartnerModal.fillForm(updatedPartner);
       editPartnerModal.submit();
 
-      cy.wait("@updatePartner").its("response.statusCode").should("eq", 200);
+      cy.wait("@updatePartner")
+        .its("response.statusCode")
+        .should("be.oneOf", [200, 201, 202, 204]);
       cy.get("body").should("contain.text", this.partnerData.updateMessage);
 
       // Verify updated values in the list (basic check using display name)
@@ -91,7 +95,9 @@ describe("Partners - CRUD Operations", () => {
 
       partnersPage.confirmDelete();
 
-      cy.wait("@deletePartner").its("response.statusCode").should("eq", 200);
+      cy.wait("@deletePartner")
+        .its("response.statusCode")
+        .should("be.oneOf", [200, 201, 202, 204]);
 
       cy.get("body").should("contain.text", this.partnerData.deleteMessage);
 

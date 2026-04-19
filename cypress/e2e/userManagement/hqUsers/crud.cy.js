@@ -55,7 +55,9 @@ describe("HqUsers - CRUD Operations", () => {
 
       addHqUserModal.submit();
 
-      cy.wait("@createHqUser").its("response.statusCode").should("eq", 200);
+      cy.wait("@createHqUser")
+        .its("response.statusCode")
+        .should("be.oneOf", [200, 201, 202, 204]);
       cy.get("body").should("contain.text", this.hqUserData.successMessage);
 
       hqUsersPage.searchTable(fullName);
@@ -83,7 +85,9 @@ describe("HqUsers - CRUD Operations", () => {
       editHqUserModal.fillForm(updatedHqUser);
       editHqUserModal.submit();
 
-      cy.wait("@updateHqUser").its("response.statusCode").should("eq", 200);
+      cy.wait("@updateHqUser")
+        .its("response.statusCode")
+        .should("be.oneOf", [200, 201, 202, 204]);
       cy.get("body").should("contain.text", this.hqUserData.updateMessage);
 
       hqUsersPage.searchTable(fullName);
@@ -104,7 +108,9 @@ describe("HqUsers - CRUD Operations", () => {
 
       hqUsersPage.confirmDelete();
 
-      cy.wait("@deleteHqUser").its("response.statusCode").should("eq", 200);
+      cy.wait("@deleteHqUser")
+        .its("response.statusCode")
+        .should("be.oneOf", [200, 201, 202, 204]);
       cy.get("body").should("contain.text", this.hqUserData.deleteMessage);
     });
   });

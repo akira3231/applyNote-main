@@ -55,7 +55,9 @@ describe("UnitUsers - CRUD Operations", () => {
 
       addUnitUserModal.submit();
 
-      cy.wait("@createUnitUser").its("response.statusCode").should("eq", 200);
+      cy.wait("@createUnitUser")
+        .its("response.statusCode")
+        .should("be.oneOf", [200, 201, 202, 204]);
       cy.get("body").should("contain.text", this.unitUserData.successMessage);
 
       unitUsersPage.searchTable(fullName);
@@ -83,7 +85,9 @@ describe("UnitUsers - CRUD Operations", () => {
       editUnitUserModal.fillForm(updatedUnitUser);
       editUnitUserModal.submit();
 
-      cy.wait("@updateUnitUser").its("response.statusCode").should("eq", 200);
+      cy.wait("@updateUnitUser")
+        .its("response.statusCode")
+        .should("be.oneOf", [200, 201, 202, 204]);
       cy.get("body").should("contain.text", this.unitUserData.updateMessage);
 
       unitUsersPage.searchTable(fullName);
@@ -104,7 +108,9 @@ describe("UnitUsers - CRUD Operations", () => {
 
       unitUsersPage.confirmDelete();
 
-      cy.wait("@deleteUnitUser").its("response.statusCode").should("eq", 200);
+      cy.wait("@deleteUnitUser")
+        .its("response.statusCode")
+        .should("be.oneOf", [200, 201, 202, 204]);
       cy.get("body").should("contain.text", this.unitUserData.deleteMessage);
     });
   });

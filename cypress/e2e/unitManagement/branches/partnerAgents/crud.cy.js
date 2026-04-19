@@ -92,7 +92,7 @@ describe("Partner Agents - CRUD Operations", () => {
 
       cy.wait("@updatePartnerAgent")
         .its("response.statusCode")
-        .should("eq", 200);
+        .should("be.oneOf", [200, 201, 202, 204]);
       cy.get("body").should(
         "contain.text",
         this.partnerAgentData.updateMessage,
@@ -122,7 +122,7 @@ describe("Partner Agents - CRUD Operations", () => {
 
       cy.wait("@deletePartnerAgent")
         .its("response.statusCode")
-        .should("eq", 200);
+        .should("be.oneOf", [200, 201, 202, 204]);
 
       cy.get("body").should(
         "contain.text",

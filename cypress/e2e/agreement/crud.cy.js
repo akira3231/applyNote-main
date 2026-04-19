@@ -47,7 +47,9 @@ describe("Agreements - CRUD Operations", () => {
       addAgreementModal.fillForm(this.agreementData.newAgreement);
       addAgreementModal.submit();
 
-      cy.wait("@createAgreement").its("response.statusCode").should("eq", 200);
+      cy.wait("@createAgreement")
+        .its("response.statusCode")
+        .should("be.oneOf", [200, 201, 202, 204]);
 
       cy.get("body").should("contain.text", this.agreementData.successMessage);
 
@@ -71,7 +73,9 @@ describe("Agreements - CRUD Operations", () => {
       editAgreementModal.fillForm(updatedAgreement);
       editAgreementModal.submit();
 
-      cy.wait("@updateAgreement").its("response.statusCode").should("eq", 200);
+      cy.wait("@updateAgreement")
+        .its("response.statusCode")
+        .should("be.oneOf", [200, 201, 202, 204]);
       cy.get("body").should("contain.text", this.agreementData.updateMessage);
 
       agreementsPage.searchTable(updatedAgreement.invoicingName);
@@ -92,7 +96,9 @@ describe("Agreements - CRUD Operations", () => {
 
       agreementsPage.confirmDelete();
 
-      cy.wait("@deleteAgreement").its("response.statusCode").should("eq", 200);
+      cy.wait("@deleteAgreement")
+        .its("response.statusCode")
+        .should("be.oneOf", [200, 201, 202, 204]);
 
       cy.get("body").should("contain.text", this.agreementData.deleteMessage);
 

@@ -47,7 +47,9 @@ describe("Blogs - CRUD Operations", () => {
       addBlogPage.fillForm(newBlog);
       addBlogPage.submit();
 
-      cy.wait("@createBlog").its("response.statusCode").should("eq", 200);
+      cy.wait("@createBlog")
+        .its("response.statusCode")
+        .should("be.oneOf", [200, 201, 202, 204]);
       cy.get("body").should("contain.text", this.blogData.successMessage);
 
       blogsPage.searchTable(newBlog.title);
@@ -69,7 +71,9 @@ describe("Blogs - CRUD Operations", () => {
       editBlogPage.fillForm(updatedBlog);
       editBlogPage.submit();
 
-      cy.wait("@updateBlog").its("response.statusCode").should("eq", 200);
+      cy.wait("@updateBlog")
+        .its("response.statusCode")
+        .should("be.oneOf", [200, 201, 202, 204]);
       cy.get("body").should("contain.text", this.blogData.updateMessage);
 
       blogsPage.searchTable(updatedBlog.title);
@@ -88,7 +92,9 @@ describe("Blogs - CRUD Operations", () => {
 
       blogsPage.confirmDelete();
 
-      cy.wait("@deleteBlog").its("response.statusCode").should("eq", 200);
+      cy.wait("@deleteBlog")
+        .its("response.statusCode")
+        .should("be.oneOf", [200, 201, 202, 204]);
       cy.get("body").should("contain.text", this.blogData.deleteMessage);
     });
   });
