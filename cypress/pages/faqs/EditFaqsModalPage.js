@@ -1,35 +1,19 @@
-class EditFaqsModalPage {
+const BaseTablePage = require("../common/BaseTablePage");
+
+class EditFaqsModalPage extends BaseTablePage {
   get modalTitle() {
     return cy.contains("div.bg-sidebar-primary", /Edit FAQ/);
   }
-
   get questionInput() {
     return cy.get(
       'input[placeholder*="Enter a clear and concise question"], input[name="question"]',
     );
   }
-
   get answerEditor() {
     return cy.get('div.tiptap.ProseMirror[contenteditable="true"]');
   }
-
   get updateBtn() {
     return cy.contains("button", "Update FAQ");
-  }
-
-  assertModalIsOpen() {
-    this.modalTitle.should("be.visible");
-  }
-
-  updateField(input, newValue) {
-    if (!newValue) return;
-
-    input.then(($el) => {
-      const currentValue = $el.val?.() ?? $el.text?.();
-      if (currentValue !== newValue) {
-        cy.wrap($el).clear().type(String(newValue));
-      }
-    });
   }
 
   updateAnswer(newValue) {
@@ -52,6 +36,14 @@ class EditFaqsModalPage {
 
   submit() {
     this.updateBtn.click();
+  }
+
+  cancel() {
+    this.cancelBtn.click();
+  }
+
+  assertModalIsOpen() {
+    this.modalTitle.should("be.visible");
   }
 }
 
