@@ -1,0 +1,15 @@
+{
+  "newDocument": {
+    "name": "Official Document",
+    "countries": ["Australia", "United States"]
+  },
+
+  "updatedDocument": {
+    "name": "Semi Official Document",
+    "countries": ["Canada", "United Kingdom"]
+  },
+
+  "successMessage": "Document created successfully",
+  "updateMessage": "Document updated successfully", 
+  "deleteMessage": "Document deleted successfully"
+}
