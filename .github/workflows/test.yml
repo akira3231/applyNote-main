@@ -58,10 +58,10 @@ jobs:
       # ================= RUN TESTS =================
       - name: Run Cypress tests
         run: |
-         rm -rf allure-results
-          mkdir -p allure-results
-          # Target all nested folders in e2e
-          npx cypress run --browser edge --spec "cypress/e2e/**/*.cy.js"
+          rm -rf allure-results
+           mkdir -p allure-results
+           # Target all nested folders in e2e
+           npx cypress run --browser edge --spec "cypress/e2e/**/*.cy.js"
         continue-on-error: true
 
       # ================= DEBUG (OPTIONAL BUT USEFUL) =================
@@ -84,4 +84,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./allure-report
           publish_branch: gh-pages
-          keep_files: true
+          keep_files: false
