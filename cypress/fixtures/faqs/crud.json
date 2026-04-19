@@ -1,0 +1,15 @@
+{
+  "newFaq": {
+    "question": "What documents are required to apply for a student visa?",
+    "answer": "You will need a valid passport, acceptance letter from your institution, proof of financial support, English language test results, and completed visa application form."
+  },
+
+  "updatedFaq": {
+    "question": "How long does the student visa application process take?",
+    "answer": "The student visa application process typically takes between 4 to 8 weeks depending on the country and the completeness of your submitted documents."
+  },
+
+  "successMessage": "Faq created successfully",
+  "updateMessage": "Faq updated successfully",
+  "deleteMessage": "Faq deleted successfully"
+}
