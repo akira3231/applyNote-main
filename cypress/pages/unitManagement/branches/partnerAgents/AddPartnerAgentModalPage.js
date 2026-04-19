@@ -19,13 +19,13 @@ class AddPartnerAgentModalPage {
   get currencySelect() {
     return cy.contains('button[role="combobox"]', "Select Currency");
   }
-  get countrySelect() {
-    return cy.contains('button[role="combobox"]', "Select Country");
-  }
   get commissionRateInput() {
     return cy.get(
       'input[placeholder*="Commission Rate"], input[name="commissionRate"]',
     );
+  }
+  get locationInfoSection() {
+    return cy.contains("button, div, h3", "Location Info");
   }
   get stateInput() {
     return cy.get(
@@ -41,23 +41,24 @@ class AddPartnerAgentModalPage {
   get cancelBtn() {
     return cy.contains("button", "Cancel");
   }
-
-  get locationInfoSection() {
-    return cy.contains("button, div, h3", "Location Info");
+  get countrySelect() {
+    return cy.contains('button[role="combobox"]', "Select Country");
   }
 
-  selectFromDropdown(value) {
-    cy.get("body")
-      .find('[role="option"]')
+  selectWithSearch(trigger, value) {
+    trigger.click({ force: true });
+
+    cy.get('[cmdk-root] input[placeholder="Search..."]', { timeout: 10000 })
       .should("be.visible")
+      .type(value, { force: true });
+
+    cy.get("[cmdk-item]", { timeout: 10000 })
+      .filter(":visible")
       .contains(value)
       .click({ force: true });
   }
 
   fillForm(partnerAgentData) {
-    if (!partnerAgentData) {
-      throw new Error("Partner agent test data is undefined");
-    }
     if (partnerAgentData.displayName)
       this.displayNameInput.clear().type(partnerAgentData.displayName);
     if (partnerAgentData.legalName)
@@ -66,27 +67,22 @@ class AddPartnerAgentModalPage {
       this.emailInput.clear().type(partnerAgentData.email);
     if (partnerAgentData.phone)
       this.phoneInput.clear().type(partnerAgentData.phone);
-    if (partnerAgentData.currency) {
-      this.currencySelect.click();
-      this.selectFromDropdown(partnerAgentData.currency);
-    }
+    if (partnerAgentData.currency)
+      this.selectWithSearch(this.currencySelect, partnerAgentData.currency);
     if (partnerAgentData.commissionRate)
       this.commissionRateInput.clear().type(partnerAgentData.commissionRate);
     if (
       partnerAgentData.country ||
       partnerAgentData.city ||
       partnerAgentData.state
-    ) {
+    )
       this.locationInfoSection.click();
-    }
     if (partnerAgentData.city)
       this.cityInput.clear().type(partnerAgentData.city);
     if (partnerAgentData.state)
       this.stateInput.clear().type(partnerAgentData.state);
-    if (partnerAgentData.country) {
-      this.countrySelect.click();
-      this.selectFromDropdown(partnerAgentData.country);
-    }
+    if (partnerAgentData.country)
+      this.selectWithSearch(this.countrySelect, partnerAgentData.country);
   }
 
   submit() {

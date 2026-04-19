@@ -1,9 +1,6 @@
 class EditPartnerAgentModalPage {
   get modalTitle() {
-    return cy.contains(
-      "h2, .modal-title",
-      /Edit PartnerAgent|Update PartnerAgent/,
-    );
+    return cy.contains("h2, .modal-title", /Edit PartnerAgent/);
   }
   get displayNameInput() {
     return cy.get(
@@ -25,22 +22,14 @@ class EditPartnerAgentModalPage {
       .parent()
       .find('button[role="combobox"]');
   }
-  get countrySelect() {
-    return cy
-      .contains("label, div", /country/i)
-      .parent()
-      .find('button[role="combobox"]');
-  }
   get commissionRateInput() {
     return cy.get(
       'input[placeholder*="Commission Rate"], input[name="commissionRate"]',
     );
   }
-
   get locationInfoSection() {
     return cy.contains("button, div, h3", "Location Info");
   }
-
   get stateInput() {
     return cy.get(
       'input[placeholder*="Enter State/Province"], input[name="state"]',
@@ -49,74 +38,62 @@ class EditPartnerAgentModalPage {
   get cityInput() {
     return cy.get('input[placeholder*="City"], input[name="city"]');
   }
+  get countrySelect() {
+    return cy
+      .contains("label, div", /country/i)
+      .parent()
+      .find('button[role="combobox"]');
+  }
   get updateBtn() {
     return cy.contains("button", "Update Partner Agent");
   }
 
-  isDifferent(currentValue, newValue) {
-    return newValue && newValue !== currentValue;
-  }
-
   updateField(input, newValue) {
     if (!newValue) return;
-
     input.then(($el) => {
       const currentValue = $el.val?.() ?? $el.text?.();
-
       if (currentValue !== newValue) {
         cy.wrap($el).clear().type(String(newValue));
       }
     });
   }
 
-  updateDropdown(trigger, value, label = "dropdown") {
+  updateDropdownWithSearch(trigger, value) {
     if (!value) return;
 
-    trigger
-      .should("be.visible")
-      .invoke("text")
-      .then((text) => {
-        const current = text.replace(/\s+/g, " ").trim();
+    trigger.then(($btn) => {
+      const current = $btn.text().replace(/\s+/g, " ").trim();
+      if (current === value) return;
 
-        if (current === value) {
-          return;
-        }
+      cy.wrap($btn).click({ force: true });
 
-        cy.contains(
-          'button[role="combobox"]',
-          current || { timeout: 10000 },
-        ).click({ force: true });
+      cy.get('[cmdk-root] input[placeholder="Search..."]', { timeout: 10000 })
+        .filter(":visible")
+        .first()
+        .clear({ force: true })
+        .type(value, { force: true });
 
-        cy.get('[role="option"]', { timeout: 10000 })
-          .contains(value)
-          .scrollIntoView()
-          .should("be.visible")
-          .click({ force: true });
-      });
+      cy.get("[cmdk-item]", { timeout: 10000 })
+        .filter(":visible")
+        .contains(value)
+        .click({ force: true });
+    });
   }
 
   fillForm(partnerAgentsData) {
     if (partnerAgentsData.displayName)
       this.updateField(this.displayNameInput, partnerAgentsData.displayName);
-
     if (partnerAgentsData.legalName)
       this.updateField(this.legalNameInput, partnerAgentsData.legalName);
-
     if (partnerAgentsData.email)
       this.updateField(this.emailInput, partnerAgentsData.email);
-
     if (partnerAgentsData.phone)
       this.updateField(this.phoneInput, partnerAgentsData.phone);
-
-    // Currency dropdown
-    if (partnerAgentsData.currency) {
-      this.updateDropdown(
+    if (partnerAgentsData.currency)
+      this.updateDropdownWithSearch(
         this.currencySelect,
         partnerAgentsData.currency,
-        "currency",
       );
-    }
-
     if (partnerAgentsData.commissionRate)
       this.updateField(
         this.commissionRateInput,
@@ -132,22 +109,21 @@ class EditPartnerAgentModalPage {
 
     if (partnerAgentsData.city)
       this.updateField(this.cityInput, partnerAgentsData.city);
-
     if (partnerAgentsData.state)
       this.updateField(this.stateInput, partnerAgentsData.state);
-
-    // Country dropdown
-    if (partnerAgentsData.country) {
-      this.updateDropdown(
+    if (partnerAgentsData.country)
+      this.updateDropdownWithSearch(
         this.countrySelect,
         partnerAgentsData.country,
-        "country",
       );
-    }
   }
 
   submit() {
     this.updateBtn.click();
+  }
+
+  cancel() {
+    this.cancelBtn.click();
   }
 
   assertModalIsOpen() {
