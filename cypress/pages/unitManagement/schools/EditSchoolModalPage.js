@@ -1,6 +1,6 @@
 class EditSchoolModalPage {
   get modalTitle() {
-    return cy.contains("h2, .modal-title", /Edit School|Update School/);
+    return cy.contains("h2, .modal-title", /Edit School/);
   }
   get displayNameInput() {
     return cy.get(
@@ -16,19 +16,12 @@ class EditSchoolModalPage {
   get phoneInput() {
     return cy.get('input[placeholder*="Phone"], input[name="phone"]');
   }
-  get countrySelect() {
-    return cy.get('button[role="combobox"]').filter(":visible");
-  }
   get commissionPointInput() {
-    return cy.get(
-      'input[placeholder*="Commission Point"], input[name="commissionPoint"]',
-    );
+    return cy.get('input[name="commissionPoint"]');
   }
-
   get locationInfoSection() {
     return cy.contains("button, div, h3", "Location Info");
   }
-
   get stateInput() {
     return cy.get(
       'input[placeholder*="Enter State/Province"], input[name="state"]',
@@ -37,63 +30,55 @@ class EditSchoolModalPage {
   get cityInput() {
     return cy.get('input[placeholder*="City"], input[name="city"]');
   }
+  get countrySelect() {
+    return cy
+      .contains("label", /country/i)
+      .parent()
+      .find('button[role="combobox"]');
+  }
   get updateBtn() {
     return cy.contains("button", "Update School");
   }
 
-  isDifferent(currentValue, newValue) {
-    return newValue && newValue !== currentValue;
-  }
-
   updateField(input, newValue) {
     if (!newValue) return;
-
     input.then(($el) => {
       const currentValue = $el.val?.() ?? $el.text?.();
-
       if (currentValue !== newValue) {
         cy.wrap($el).clear().type(String(newValue));
       }
     });
   }
 
-  updateDropdown(trigger, value, label = "dropdown") {
+  updateDropdownWithSearch(triggerEl, value) {
     if (!value) return;
 
-    trigger
-      .should("be.visible")
-      .invoke("text")
-      .then((text) => {
-        const current = text.replace(/\s+/g, " ").trim();
+    triggerEl.then(($btn) => {
+      const current = $btn.text().replace(/\s+/g, " ").trim();
+      if (current === value) return;
 
-        if (current === value) {
-          return;
-        }
+      cy.wrap($btn).click({ force: true });
 
-        cy.contains(
-          'button[role="combobox"]',
-          current || { timeout: 10000 },
-        ).click({ force: true });
+      cy.get('[cmdk-root] input[placeholder="Search..."]', { timeout: 10000 })
+        .filter(":visible")
+        .first()
+        .clear({ force: true })
+        .type(value, { force: true });
 
-        cy.get('[role="option"]', { timeout: 10000 })
-          .contains(value)
-          .scrollIntoView()
-          .should("be.visible")
-          .click({ force: true });
-      });
+      cy.get("[cmdk-item]", { timeout: 10000 })
+        .filter(":visible")
+        .contains(value)
+        .click({ force: true });
+    });
   }
 
   fillForm(schoolData) {
     if (schoolData.displayName)
       this.updateField(this.displayNameInput, schoolData.displayName);
-
     if (schoolData.legalName)
       this.updateField(this.legalNameInput, schoolData.legalName);
-
     if (schoolData.email) this.updateField(this.emailInput, schoolData.email);
-
     if (schoolData.phone) this.updateField(this.phoneInput, schoolData.phone);
-
     if (schoolData.commissionPoint)
       this.updateField(this.commissionPointInput, schoolData.commissionPoint);
 
@@ -101,17 +86,17 @@ class EditSchoolModalPage {
       this.locationInfoSection.click();
 
     if (schoolData.city) this.updateField(this.cityInput, schoolData.city);
-
     if (schoolData.state) this.updateField(this.stateInput, schoolData.state);
-
-    // Country dropdown
-    if (schoolData.country) {
-      this.updateDropdown(this.countrySelect, schoolData.country, "country");
-    }
+    if (schoolData.country)
+      this.updateDropdownWithSearch(this.countrySelect, schoolData.country);
   }
 
   submit() {
     this.updateBtn.click();
+  }
+
+  cancel() {
+    cy.contains("button", "Cancel").click();
   }
 
   assertModalIsOpen() {
