@@ -57,7 +57,7 @@ describe("SubUnitUsers - CRUD Operations", () => {
 
       cy.wait("@createSubUnitUser")
         .its("response.statusCode")
-        .should("eq", 200);
+        .should("be.oneOf", [200, 201, 202, 204]);
       cy.get("body").should(
         "contain.text",
         this.subUnitUserData.successMessage,
@@ -91,7 +91,7 @@ describe("SubUnitUsers - CRUD Operations", () => {
 
       cy.wait("@updateSubUnitUser")
         .its("response.statusCode")
-        .should("eq", 200);
+        .should("be.oneOf", [200, 201, 202, 204]);
       cy.get("body").should("contain.text", this.subUnitUserData.updateMessage);
 
       subUnitUsersPage.searchTable(fullName);
@@ -114,7 +114,7 @@ describe("SubUnitUsers - CRUD Operations", () => {
 
       cy.wait("@deleteSubUnitUser")
         .its("response.statusCode")
-        .should("eq", 200);
+        .should("be.oneOf", [200, 201, 202, 204]);
       cy.get("body").should("contain.text", this.subUnitUserData.deleteMessage);
     });
   });

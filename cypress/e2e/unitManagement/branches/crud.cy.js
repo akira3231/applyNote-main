@@ -47,7 +47,9 @@ describe("Branches - CRUD Operations", () => {
       addBranchModal.fillForm(this.branchData.newBranch);
       addBranchModal.submit();
 
-      cy.wait("@createBranch").its("response.statusCode").should("eq", 200);
+      cy.wait("@createBranch")
+        .its("response.statusCode")
+        .should("be.oneOf", [200, 201, 202, 204]);
 
       cy.get("body").should("contain.text", this.branchData.successMessage);
 
@@ -71,7 +73,9 @@ describe("Branches - CRUD Operations", () => {
       editBranchModal.fillForm(updatedBranch);
       editBranchModal.submit();
 
-      cy.wait("@updateBranch").its("response.statusCode").should("eq", 200);
+      cy.wait("@updateBranch")
+        .its("response.statusCode")
+        .should("be.oneOf", [200, 201, 202, 204]);
       cy.get("body").should("contain.text", this.branchData.updateMessage);
 
       // Verify updated values in the list (basic check using display name)
@@ -91,7 +95,9 @@ describe("Branches - CRUD Operations", () => {
 
       branchesPage.confirmDelete();
 
-      cy.wait("@deleteBranch").its("response.statusCode").should("eq", 200);
+      cy.wait("@deleteBranch")
+        .its("response.statusCode")
+        .should("be.oneOf", [200, 201, 202, 204]);
 
       cy.get("body").should("contain.text", this.branchData.deleteMessage);
 

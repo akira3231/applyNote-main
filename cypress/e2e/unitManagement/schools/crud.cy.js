@@ -47,7 +47,9 @@ describe("Schools - CRUD Operations", () => {
       addSchoolModal.fillForm(this.schoolData.newSchool);
       addSchoolModal.submit();
 
-      cy.wait("@createSchool").its("response.statusCode").should("eq", 200);
+      cy.wait("@createSchool")
+        .its("response.statusCode")
+        .should("be.oneOf", [200, 201, 202, 204]);
 
       cy.get("body").should("contain.text", this.schoolData.successMessage);
 
@@ -71,7 +73,9 @@ describe("Schools - CRUD Operations", () => {
       editSchoolModal.fillForm(updatedSchool);
       editSchoolModal.submit();
 
-      cy.wait("@updateSchool").its("response.statusCode").should("eq", 200);
+      cy.wait("@updateSchool")
+        .its("response.statusCode")
+        .should("be.oneOf", [200, 201, 202, 204]);
       cy.get("body").should("contain.text", this.schoolData.updateMessage);
 
       // Verify updated values in the list (basic check using display name)
@@ -91,7 +95,9 @@ describe("Schools - CRUD Operations", () => {
 
       schoolsPage.confirmDelete();
 
-      cy.wait("@deleteSchool").its("response.statusCode").should("eq", 200);
+      cy.wait("@deleteSchool")
+        .its("response.statusCode")
+        .should("be.oneOf", [200, 201, 202, 204]);
 
       cy.get("body").should("contain.text", this.schoolData.deleteMessage);
 

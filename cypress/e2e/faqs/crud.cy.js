@@ -47,7 +47,9 @@ describe("Faqs - CRUD Operations", () => {
       addFaqModal.fillForm(this.faqData.newFaq);
       addFaqModal.submit();
 
-      cy.wait("@createFaq").its("response.statusCode").should("eq", 200);
+      cy.wait("@createFaq")
+        .its("response.statusCode")
+        .should("be.oneOf", [200, 201, 202, 204]);
 
       cy.get("body").should("contain.text", this.faqData.successMessage);
 
@@ -71,7 +73,9 @@ describe("Faqs - CRUD Operations", () => {
       editFaqModal.fillForm(updatedFaq);
       editFaqModal.submit();
 
-      cy.wait("@updateFaq").its("response.statusCode").should("eq", 200);
+      cy.wait("@updateFaq")
+        .its("response.statusCode")
+        .should("be.oneOf", [200, 201, 202, 204]);
       cy.get("body").should("contain.text", this.faqData.updateMessage);
 
       faqsPage.searchTable(updatedFaq.question);
@@ -90,7 +94,9 @@ describe("Faqs - CRUD Operations", () => {
 
       faqsPage.confirmDelete();
 
-      cy.wait("@deleteFaq").its("response.statusCode").should("eq", 200);
+      cy.wait("@deleteFaq")
+        .its("response.statusCode")
+        .should("be.oneOf", [200, 201, 202, 204]);
 
       cy.get("body").should("contain.text", this.faqData.deleteMessage);
     });

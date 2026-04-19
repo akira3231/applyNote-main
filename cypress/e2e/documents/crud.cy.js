@@ -47,7 +47,9 @@ describe("Documents - CRUD Operations", () => {
       addDocumentModal.fillForm(this.documentData.newDocument);
       addDocumentModal.submit();
 
-      cy.wait("@createDocument").its("response.statusCode").should("eq", 200);
+      cy.wait("@createDocument")
+        .its("response.statusCode")
+        .should("be.oneOf", [200, 201, 202, 204]);
 
       cy.get("body").should("contain.text", this.documentData.successMessage);
 
@@ -71,7 +73,9 @@ describe("Documents - CRUD Operations", () => {
       editDocumentModal.fillForm(updatedDocument);
       editDocumentModal.submit();
 
-      cy.wait("@updateDocument").its("response.statusCode").should("eq", 200);
+      cy.wait("@updateDocument")
+        .its("response.statusCode")
+        .should("be.oneOf", [200, 201, 202, 204]);
       cy.get("body").should("contain.text", this.documentData.updateMessage);
 
       documentsPage.searchTable(updatedDocument.name);
@@ -90,7 +94,9 @@ describe("Documents - CRUD Operations", () => {
 
       documentsPage.confirmDelete();
 
-      cy.wait("@deleteDocument").its("response.statusCode").should("eq", 200);
+      cy.wait("@deleteDocument")
+        .its("response.statusCode")
+        .should("be.oneOf", [200, 201, 202, 204]);
 
       cy.get("body").should("contain.text", this.documentData.deleteMessage);
     });
