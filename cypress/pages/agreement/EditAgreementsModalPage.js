@@ -1,16 +1,18 @@
-class AddAgreementsModalPage {
+class EditAgreementsModalPage {
   get modalTitle() {
-    return cy.contains("h2, div.bg-sidebar-primary", /Add Agreement/i);
+    return cy.contains("h2, .modal-title", "Edit Agreement");
   }
 
   get institutionSelect() {
-    return cy.contains("button", "Select Institution").filter(":visible");
+    return cy
+      .get('button[aria-haspopup="dialog"][role="combobox"]')
+      .filter(":visible")
+      .first();
   }
 
   get invoicingNameInput() {
     return cy.get('input[name="invoice_name"]');
   }
-
   get countriesAllowedSelect() {
     return cy
       .get('button[role="combobox"][aria-haspopup="listbox"]')
@@ -18,11 +20,17 @@ class AddAgreementsModalPage {
   }
 
   get startDateBtn() {
-    return cy.contains("button", "Pick start date");
+    return cy
+      .contains("label", /start date/i)
+      .parent()
+      .find('button[aria-haspopup="dialog"]');
   }
 
   get endDateBtn() {
-    return cy.contains("button", "Pick end date");
+    return cy
+      .contains("label", /end date/i)
+      .parent()
+      .find('button[aria-haspopup="dialog"]');
   }
 
   get blacklistRadio() {
@@ -35,8 +43,12 @@ class AddAgreementsModalPage {
   get commentsInput() {
     return cy.get('textarea[name="comments"]');
   }
+
   get commissionSection() {
-    return cy.contains("button, div, h3", "Commission");
+    return cy
+      .contains("span.font-semibold", "Commission")
+      .closest("h3")
+      .find("button");
   }
 
   get commissionTypeRadio() {
@@ -50,50 +62,10 @@ class AddAgreementsModalPage {
     return cy.get('input[name="commission_amount"]');
   }
 
-  get attachmentSection() {
-    return cy.contains("button, div, h3", "Attachments");
+  get updateBtn() {
+    return cy.contains("button", /Update Agreement/);
   }
 
-  get addAttachmentBtn() {
-    return cy.get(".space-y-4 > div > .inline-flex");
-  }
-
-  get attachmentFileInput() {
-    return cy.get('input[type="file"]').last();
-  }
-
-  uploadAttachment(filePath) {
-    if (!filePath) return;
-
-    this.addAttachmentBtn.click({ force: true });
-
-    cy.get('input[type="file"]', { timeout: 10000 })
-      .last()
-      .selectFile(filePath, { force: true });
-  }
-
-  get addNewBtn() {
-    return cy
-      .get("button.bg-success")
-      .contains("button", "Add Agreement")
-      .filter(":visible");
-  }
-
-  get cancelBtn() {
-    return cy.contains("button", "Cancel");
-  }
-
-  selectFromDropdown(value) {
-    cy.document().then((doc) => {
-      cy.wrap(doc.body)
-        .find('[role="option"]', { timeout: 10000 })
-        .contains(value)
-        .then(($el) => {
-          $el[0].scrollIntoView({ block: "center" });
-          $el[0].click();
-        });
-    });
-  }
   selectCountries(countries) {
     if (!countries || !countries.length) return;
 
@@ -138,14 +110,50 @@ class AddAgreementsModalPage {
       .click({ force: true });
   }
 
+  updateField(input, newValue) {
+    if (!newValue) return;
+
+    input.then(($el) => {
+      const currentValue = $el.val?.() ?? $el.text?.();
+      if (currentValue !== newValue) {
+        cy.wrap($el).clear().type(String(newValue));
+      }
+    });
+  }
+  updateDropdown(trigger, value, label = "dropdown") {
+    if (!value) return;
+
+    trigger
+      .should("be.visible")
+      .invoke("text")
+      .then((text) => {
+        const current = text.replace(/\s+/g, " ").trim();
+
+        if (current === value) {
+          return;
+        }
+
+        cy.contains(
+          'button[role="combobox"]',
+          current || { timeout: 10000 },
+        ).click({ force: true });
+
+        cy.get('[role="option"]', { timeout: 10000 })
+          .contains(value)
+          .scrollIntoView()
+          .should("be.visible")
+          .click({ force: true });
+      });
+  }
+
   fillForm(agreementData) {
     if (agreementData.institution) {
       this.institutionSelect.click();
-      this.selectFromDropdown(agreementData.institution);
+      this.updateDropdown(this.institutionSelect, agreementData.institution);
     }
 
     if (agreementData.invoicingName)
-      this.invoicingNameInput.clear().type(agreementData.invoicingName);
+      this.updateField(this.invoicingNameInput, agreementData.invoicingName);
 
     if (agreementData.countries) this.selectCountries(agreementData.countries);
 
@@ -179,23 +187,10 @@ class AddAgreementsModalPage {
 
     if (agreementData.commissionAmount)
       this.commissionAmountInput.clear().type(agreementData.commissionAmount);
-
-    if (agreementData.attachments) this.attachmentSection.click();
-
-    if (agreementData.attachments && agreementData.attachments.length > 0) {
-      agreementData.attachments.forEach((filePath) => {
-        this.uploadAttachment(filePath);
-      });
-    }
   }
 
   submit() {
-    cy.wait(2000);
-    this.addNewBtn.click();
-  }
-
-  cancel() {
-    this.cancelBtn.click();
+    this.updateBtn.click();
   }
 
   assertModalIsOpen() {
@@ -203,4 +198,4 @@ class AddAgreementsModalPage {
   }
 }
 
-module.exports = AddAgreementsModalPage;
+module.exports = EditAgreementsModalPage;
