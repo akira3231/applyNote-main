@@ -1,4 +1,6 @@
-class EditPartnerModalPage {
+const BaseTablePage = require("../../common/BaseTablePage");
+
+class EditPartnerModalPage extends BaseTablePage {
   get modalTitle() {
     return cy.contains("h2, .modal-title", /Edit Partner/);
   }
@@ -47,36 +49,8 @@ class EditPartnerModalPage {
   get updateBtn() {
     return cy.contains("button", "Update Partner");
   }
-  updateField(input, newValue) {
-    if (!newValue) return;
-    input.then(($el) => {
-      const currentValue = $el.val?.() ?? $el.text?.();
-      if (currentValue !== newValue) {
-        cy.wrap($el).clear().type(String(newValue));
-      }
-    });
-  }
-
-  updateDropdownWithSearch(triggerEl, value) {
-    if (!value) return;
-
-    triggerEl.then(($btn) => {
-      const current = $btn.text().replace(/\s+/g, " ").trim();
-      if (current === value) return;
-
-      cy.wrap($btn).click({ force: true });
-
-      cy.get('[cmdk-root] input[placeholder="Search..."]', { timeout: 10000 })
-        .filter(":visible")
-        .first()
-        .clear({ force: true })
-        .type(value, { force: true });
-
-      cy.get("[cmdk-item]", { timeout: 10000 })
-        .filter(":visible")
-        .contains(value)
-        .click({ force: true });
-    });
+  get cancelBtn() {
+    return cy.contains("button", "Cancel");
   }
 
   fillForm(partnerData) {
@@ -90,10 +64,8 @@ class EditPartnerModalPage {
       this.updateDropdownWithSearch(this.currencySelect, partnerData.currency);
     if (partnerData.commissionRate)
       this.updateField(this.commissionRateInput, partnerData.commissionRate);
-
     if (partnerData.country || partnerData.city || partnerData.state)
       this.locationInfoSection.click();
-
     if (partnerData.city) this.updateField(this.cityInput, partnerData.city);
     if (partnerData.state) this.updateField(this.stateInput, partnerData.state);
     if (partnerData.country)

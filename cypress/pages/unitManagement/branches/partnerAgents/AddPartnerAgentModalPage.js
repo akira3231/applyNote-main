@@ -1,4 +1,6 @@
-class AddPartnerAgentModalPage {
+const BaseTablePage = require("../../../common/BaseTablePage");
+
+class AddPartnerAgentModalPage extends BaseTablePage {
   get modalTitle() {
     return cy.contains("h2, .modal-title", "Add Partner Agent");
   }
@@ -43,19 +45,6 @@ class AddPartnerAgentModalPage {
   }
   get countrySelect() {
     return cy.contains('button[role="combobox"]', "Select Country");
-  }
-
-  selectWithSearch(trigger, value) {
-    trigger.click({ force: true });
-
-    cy.get('[cmdk-root] input[placeholder="Search..."]', { timeout: 10000 })
-      .should("be.visible")
-      .type(value, { force: true });
-
-    cy.get("[cmdk-item]", { timeout: 10000 })
-      .filter(":visible")
-      .contains(value)
-      .click({ force: true });
   }
 
   fillForm(partnerAgentData) {

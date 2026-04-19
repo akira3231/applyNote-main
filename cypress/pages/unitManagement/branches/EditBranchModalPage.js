@@ -1,4 +1,6 @@
-class EditBranchModalPage {
+const BaseTablePage = require("../../common/BaseTablePage");
+
+class EditBranchModalPage extends BaseTablePage {
   get modalTitle() {
     return cy.contains("h2, .modal-title", /Edit Branch|Update Branch/);
   }
@@ -46,83 +48,37 @@ class EditBranchModalPage {
   get updateBtn() {
     return cy.contains("button", "Update Branch");
   }
-
-  isDifferent(currentValue, newValue) {
-    return newValue && newValue !== currentValue;
-  }
-
-  updateField(input, newValue) {
-    if (!newValue) return;
-
-    input.then(($el) => {
-      const currentValue = $el.val?.() ?? $el.text?.();
-
-      if (currentValue !== newValue) {
-        cy.wrap($el).clear().type(String(newValue));
-      }
-    });
-  }
-
-  updateDropdown(trigger, value, label = "dropdown") {
-    if (!value) return;
-
-    trigger
-      .should("be.visible")
-      .invoke("text")
-      .then((text) => {
-        const current = text.replace(/\s+/g, " ").trim();
-
-        if (current === value) {
-          return;
-        }
-
-        cy.contains(
-          'button[role="combobox"]',
-          current || { timeout: 10000 },
-        ).click({ force: true });
-
-        cy.get('[role="option"]', { timeout: 10000 })
-          .contains(value)
-          .scrollIntoView()
-          .should("be.visible")
-          .click({ force: true });
-      });
+  get cancelBtn() {
+    return cy.contains("button", "Cancel");
   }
 
   fillForm(branchData) {
     if (branchData.displayName)
       this.updateField(this.displayNameInput, branchData.displayName);
-
     if (branchData.legalName)
       this.updateField(this.legalNameInput, branchData.legalName);
-
     if (branchData.email) this.updateField(this.emailInput, branchData.email);
-
     if (branchData.phone) this.updateField(this.phoneInput, branchData.phone);
-
-    // Currency dropdown
     if (branchData.currency) {
-      this.updateDropdown(this.currencySelect, branchData.currency, "currency");
+      this.updateDropdownWithSearch(this.currencySelect, branchData.currency, "currency");
     }
-
     if (branchData.commissionRate)
       this.updateField(this.commissionRateInput, branchData.commissionRate);
-
     if (branchData.country || branchData.city || branchData.state)
       this.locationInfoSection.click();
-
     if (branchData.city) this.updateField(this.cityInput, branchData.city);
-
     if (branchData.state) this.updateField(this.stateInput, branchData.state);
-
-    // Country dropdown
     if (branchData.country) {
-      this.updateDropdown(this.countrySelect, branchData.country, "country");
+      this.updateDropdownWithSearch(this.countrySelect, branchData.country, "country");
     }
   }
 
   submit() {
     this.updateBtn.click();
+  }
+
+  cancel() {
+    this.cancelBtn.click();
   }
 
   assertModalIsOpen() {

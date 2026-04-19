@@ -1,4 +1,6 @@
-class AddPartnerModalPage {
+const BaseTablePage = require("../../common/BaseTablePage");
+
+class AddPartnerModalPage extends BaseTablePage {
   get modalTitle() {
     return cy.contains("h2, .modal-title", "Add Partner");
   }
@@ -45,23 +47,6 @@ class AddPartnerModalPage {
     return cy.contains("button", "Cancel");
   }
 
-  selectWithSearch(triggerEl, value) {
-    triggerEl.then(($btn) => {
-      cy.wrap($btn).click({ force: true });
-
-      cy.get('[cmdk-root] input[placeholder="Search..."]', { timeout: 10000 })
-        .filter(":visible")
-        .first()
-        .clear({ force: true })
-        .type(value, { force: true });
-
-      cy.get("[cmdk-item]", { timeout: 10000 })
-        .filter(":visible")
-        .contains(value)
-        .click({ force: true });
-    });
-  }
-
   fillForm(partnerData) {
     if (partnerData.displayName)
       this.displayNameInput.clear().type(partnerData.displayName);
@@ -73,10 +58,8 @@ class AddPartnerModalPage {
       this.selectWithSearch(this.currencySelect, partnerData.currency);
     if (partnerData.commissionRate)
       this.commissionRateInput.clear().type(partnerData.commissionRate);
-
     if (partnerData.country || partnerData.city || partnerData.state)
       this.locationInfoSection.click();
-
     if (partnerData.city) this.cityInput.clear().type(partnerData.city);
     if (partnerData.state) this.stateInput.clear().type(partnerData.state);
     if (partnerData.country)
