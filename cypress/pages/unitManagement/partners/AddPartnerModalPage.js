@@ -19,13 +19,13 @@ class AddPartnerModalPage {
   get currencySelect() {
     return cy.contains('button[role="combobox"]', "Select Currency");
   }
-  get countrySelect() {
-    return cy.contains('button[role="combobox"]', "Select Country");
-  }
   get commissionRateInput() {
     return cy.get(
       'input[placeholder*="Commission Rate"], input[name="commissionRate"]',
     );
+  }
+  get locationInfoSection() {
+    return cy.contains("button, div, h3", "Location Info");
   }
   get stateInput() {
     return cy.get(
@@ -35,6 +35,9 @@ class AddPartnerModalPage {
   get cityInput() {
     return cy.get('input[placeholder*="City"], input[name="city"]');
   }
+  get countrySelect() {
+    return cy.contains('button[role="combobox"]', "Select Country");
+  }
   get addNewBtn() {
     return cy.contains("button", "Add New");
   }
@@ -42,16 +45,21 @@ class AddPartnerModalPage {
     return cy.contains("button", "Cancel");
   }
 
-  get locationInfoSection() {
-    return cy.contains("button, div, h3", "Location Info");
-  }
+  selectWithSearch(triggerEl, value) {
+    triggerEl.then(($btn) => {
+      cy.wrap($btn).click({ force: true });
 
-  selectFromDropdown(value) {
-    cy.get("body")
-      .find('[role="option"]')
-      .should("be.visible")
-      .contains(value)
-      .click({ force: true });
+      cy.get('[cmdk-root] input[placeholder="Search..."]', { timeout: 10000 })
+        .filter(":visible")
+        .first()
+        .clear({ force: true })
+        .type(value, { force: true });
+
+      cy.get("[cmdk-item]", { timeout: 10000 })
+        .filter(":visible")
+        .contains(value)
+        .click({ force: true });
+    });
   }
 
   fillForm(partnerData) {
@@ -61,21 +69,18 @@ class AddPartnerModalPage {
       this.legalNameInput.clear().type(partnerData.legalName);
     if (partnerData.email) this.emailInput.clear().type(partnerData.email);
     if (partnerData.phone) this.phoneInput.clear().type(partnerData.phone);
-    if (partnerData.currency) {
-      this.currencySelect.click();
-      this.selectFromDropdown(partnerData.currency);
-    }
+    if (partnerData.currency)
+      this.selectWithSearch(this.currencySelect, partnerData.currency);
     if (partnerData.commissionRate)
       this.commissionRateInput.clear().type(partnerData.commissionRate);
-    if (partnerData.country || partnerData.city || partnerData.state) {
+
+    if (partnerData.country || partnerData.city || partnerData.state)
       this.locationInfoSection.click();
-    }
+
     if (partnerData.city) this.cityInput.clear().type(partnerData.city);
     if (partnerData.state) this.stateInput.clear().type(partnerData.state);
-    if (partnerData.country) {
-      this.countrySelect.click();
-      this.selectFromDropdown(partnerData.country);
-    }
+    if (partnerData.country)
+      this.selectWithSearch(this.countrySelect, partnerData.country);
   }
 
   submit() {
