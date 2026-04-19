@@ -1,3 +1,11 @@
+Cypress.on("uncaught:exception", (err, runnable) => {
+  if (err.message.includes("ResizeObserver")) {
+    console.log("Ignored ResizeObserver warning");
+    return false;
+  }
+  return true;
+});
+
 Cypress.Commands.add("applyNoteLogin", () => {
   const email = Cypress.env("GMAIL_USER");
   const password = Cypress.env("GMAIL_PASSWORD");
