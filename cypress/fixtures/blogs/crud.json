@@ -1,0 +1,20 @@
+{
+  "newBlog": {
+    "title": "Top 10 Tips for International Students",
+    "coverImage": "cypress/fixtures/files/blogImage.jpg",
+    "slug": "top-10-tips-international-students",
+    "author": "QA Tester",
+    "content": "Moving abroad for studies can be challenging. Here are the top 10 tips to help international students settle in and thrive in their new environment."
+  },
+
+  "updatedBlog": {
+    "title": "Top 10 Tips for International Students Updated",
+    "slug": "top-10-tips-international-students-updated",
+    "author": "QA Tester Updated",
+    "content": "Updated content: Moving abroad for studies can be challenging. Here are the top 10 tips to help international students settle in and thrive."
+  },
+
+  "successMessage": "Blog created successfully",
+  "updateMessage": "Blog updated successfully", 
+  "deleteMessage": "Blog deleted successfully"
+}
