@@ -1,47 +1,29 @@
-class EditBlogsPage {
-  get pageTitle() {
-    return cy.contains("h1", /Edit Post|Update Post|Create Post/i);
-  }
+const BaseTablePage = require("../common/BaseTablePage");
 
+class EditBlogsPage extends BaseTablePage {
+  get pageTitle() {
+    return cy.contains("h1", /Edit Post/i);
+  }
   get titleInput() {
     return cy.get('input[name="title"]');
   }
-
   get coverImageInput() {
     return cy.get('input[type="file"][accept*="image"]');
   }
-
   get slugInput() {
     return cy.get('input[name="slug"]');
   }
-
   get authorInput() {
     return cy.get('input[name="author"]');
   }
-
   get contentEditor() {
     return cy.get('div.tiptap.ProseMirror[contenteditable="true"]');
   }
-
   get submitBtn() {
-    return cy
-      .contains("button", /Update|Save/i)
-      .filter(":visible")
-      .last();
+    return cy.contains("button", /Update/);
   }
-
   get cancelBtn() {
     return cy.contains("button", "Cancel");
-  }
-
-  updateField(input, newValue) {
-    if (!newValue) return;
-    input.then(($el) => {
-      const currentValue = $el.val?.() ?? $el.text?.();
-      if (currentValue !== newValue) {
-        cy.wrap($el).clear().type(String(newValue));
-      }
-    });
   }
 
   updateContent(newValue) {
@@ -56,19 +38,15 @@ class EditBlogsPage {
 
   fillForm(blogData) {
     if (blogData.title) this.updateField(this.titleInput, blogData.title);
-
     if (blogData.coverImage)
       this.coverImageInput.selectFile(blogData.coverImage, { force: true });
-
     if (blogData.slug) this.updateField(this.slugInput, blogData.slug);
-
     if (blogData.author) this.updateField(this.authorInput, blogData.author);
-
     if (blogData.content) this.updateContent(blogData.content);
   }
 
   submit() {
-    this.submitBtn.click({ force: true });
+    this.submitBtn.click();
   }
 
   cancel() {
