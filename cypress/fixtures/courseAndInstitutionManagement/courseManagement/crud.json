@@ -1,0 +1,23 @@
+{
+  "newCourse": {
+    "courseName": "QA Automation Course",
+    "institution": "Greenfield Academy",
+    "courseLevel": true,
+    "fieldOfEducation": "Information Technology",
+    "courseLanguage": "English",
+    "courseDuration": "3",
+    "durationUnit": "Years",
+    "shortDescription": "QA test course entry",
+    "intakeMonth": "January",
+    "intakeYear": "2026",
+    "tuitionFee": "5000",
+    "nonTuitionFee": "500",
+    "totalCourseCost": "5500"
+  },
+  "updatedCourse": {
+    "courseName": "QA Updated Course"
+  },
+  "successMessage": "successfully",
+  "updateMessage": "successfully",
+  "deleteMessage": "successfully"
+}

@@ -1,0 +1,17 @@
+
+{
+  "newCourseLevel": {
+    "courseLevelName": "QA Test Course Level",
+    "institution": "University of Melbourne",
+    "course": "Undergraduate",
+    "comment": "QA test course level entry"
+  },
+  "updatedCourseLevel": {
+    "courseLevelName": "QA Updated Course Level",
+    "course": "Postgraduate",
+    "comment": "QA updated course level entry"
+  },
+  "successMessage": "created",
+  "updateMessage": "updated",
+  "deleteMessage": "deleted"
+}

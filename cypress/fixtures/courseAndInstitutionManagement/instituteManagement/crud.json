@@ -1,0 +1,26 @@
+
+{
+  "newInstitution": {
+    "institutionName": "QA Test University",
+    "legalName": "QA Test University Pvt. Ltd.",
+    "institutionType": "Private",
+    "institutionCapacity": "500",
+    "website": "www.qatestuniversity.com",
+    "description": "QA test institution entry",
+    "city": "Kathmandu",
+    "state": "Bagmati",
+    "postalCode": "44600",
+    "country": "Nepal"
+  },
+  "updatedInstitution": {
+    "institutionName": "QA Updated University",
+    "institutionType": "Private",
+    "institutionCapacity": "600",
+    "website": "www.qaupdateduniversity.com",
+    "description": "QA updated institution entry",
+    "postalCode": "44601"
+  },
+  "successMessage": "created",
+  "updateMessage": "updated",
+  "deleteMessage": "deleted"
+}

@@ -1,0 +1,19 @@
+{
+  "newCampus": {
+    "institution": "Griffith University",
+    "campusName": "QA Test Campus",
+    "email": "qa.campus@applynote.com",
+    "phone": "9800000010",
+    "description": "QA test campus entry",
+    "city": "Kathmandu",
+    "country": "Nepal"
+  },
+  "updatedCampus": {
+    "campusName": "QA Updated Campus",
+    "phone": "9800000011",
+    "description": "QA updated campus entry"
+  },
+  "successMessage": "created",
+  "updateMessage": "updated",
+  "deleteMessage": "deleted"
+}

@@ -1,0 +1,27 @@
+
+{
+  "newStudent": {
+    "firstName": "Bidur",
+    "lastName": "Neupane",
+    "phone": "9800000001",
+    "gender": "Male",
+    "dateOfBirth": "2000-01-15",
+    "description": "QA test student",
+    "city": "Kathmandu",
+    "state": "Bagmati",
+    "country": "Nepal"
+  },
+  "updatedStudent": {
+    "firstName": "Bidhan",
+    "lastName": "Neupane",
+    "phone": "9800000002",
+    "gender": "Female",
+    "description": "QA updated test student",
+    "city": "Pokhara",
+    "state": "Gandaki",
+    "country": "Nepal"
+  },
+  "successMessage": "Student created successfully",
+  "updateMessage": "Student updated successfully",
+  "deleteMessage": "Student deleted successfully"
+}

@@ -1,0 +1,36 @@
+{
+  "newApplication": {
+    "student": "Paleswans Shrestha",
+    "studyStartDate": "2026-07-01",
+    "coeDate": "2026-06-01",
+    "institution": "University of Melbourne",
+    "course": "Bachelor of Science",
+    "visaStatus": "Student Visa",
+    "visaExpiryDate": "2028-12-31",
+    "country": "Nepal",
+    "state": "Bagmati",
+    "city": "Kathmandu",
+    "ecRelation": "Parent",
+    "ecGivenName": "Ram",
+    "ecFamilyName": "Shrestha",
+    "ecEmail": "ram.shrestha@example.com",
+    "ecPhone": "+9779800000000",
+    "aqProgramTitle": "Bachelor of Science",
+    "aqSchoolName": "Tribhuvan University",
+    "completionMonth": "December",
+    "completionYear": "2024",
+    "firstLanguage": "Nepali",
+    "maritalStatus": "Single",
+    "oshcProvider": "Medibank",
+    "totalTuitionFee": "25000",
+    "claimableTuitionFee": "25000"
+  },
+  "updatedApplication": {
+    "student": "Hero Raj Kaphle",
+    "totalTuitionFee": "30000",
+    "claimableTuitionFee": "28000"
+  },
+  "successMessage": "created",
+  "updateMessage": "updated",
+  "deleteMessage": "deleted"
+}
