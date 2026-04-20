@@ -1,4 +1,6 @@
-class AddSchoolModalPage {
+const BaseTablePage = require("../../common/BaseTablePage");
+
+class AddSchoolModalPage extends BaseTablePage {
   get modalTitle() {
     return cy.contains("h2, .modal-title", "Add School");
   }
@@ -16,13 +18,13 @@ class AddSchoolModalPage {
   get phoneInput() {
     return cy.get('input[placeholder*="Phone"], input[name="phone"]');
   }
-  get countrySelect() {
-    return cy.contains('button[role="combobox"]', "Select Country");
-  }
   get commissionPointInput() {
     return cy.get(
       'input[placeholder*="Commission Point"], input[name="commissionPoint"]',
     );
+  }
+  get locationInfoSection() {
+    return cy.contains("button, div, h3", "Location Info");
   }
   get stateInput() {
     return cy.get(
@@ -32,23 +34,14 @@ class AddSchoolModalPage {
   get cityInput() {
     return cy.get('input[placeholder*="City"], input[name="city"]');
   }
+  get countrySelect() {
+    return cy.contains('button[role="combobox"]', "Select Country");
+  }
   get addNewBtn() {
     return cy.contains("button", "Add New");
   }
   get cancelBtn() {
     return cy.contains("button", "Cancel");
-  }
-
-  get locationInfoSection() {
-    return cy.contains("button, div, h3", "Location Info");
-  }
-
-  selectFromDropdown(value) {
-    cy.get("body")
-      .find('[role="option"]')
-      .should("be.visible")
-      .contains(value)
-      .click({ force: true });
   }
 
   fillForm(schoolData) {
@@ -58,28 +51,22 @@ class AddSchoolModalPage {
       this.legalNameInput.clear().type(schoolData.legalName);
     if (schoolData.email) this.emailInput.clear().type(schoolData.email);
     if (schoolData.phone) this.phoneInput.clear().type(schoolData.phone);
-
     if (schoolData.commissionPoint)
       this.commissionPointInput.clear().type(schoolData.commissionPoint);
-    if (schoolData.country || schoolData.city || schoolData.state) {
+    if (schoolData.country || schoolData.city || schoolData.state)
       this.locationInfoSection.click();
-    }
     if (schoolData.city) this.cityInput.clear().type(schoolData.city);
     if (schoolData.state) this.stateInput.clear().type(schoolData.state);
-    if (schoolData.country) {
-      this.countrySelect.click();
-      this.selectFromDropdown(schoolData.country);
-    }
+    if (schoolData.country)
+      this.selectWithSearch(this.countrySelect, schoolData.country);
   }
 
   submit() {
     this.addNewBtn.click();
   }
-
   cancel() {
     this.cancelBtn.click();
   }
-
   assertModalIsOpen() {
     this.modalTitle.should("be.visible");
   }

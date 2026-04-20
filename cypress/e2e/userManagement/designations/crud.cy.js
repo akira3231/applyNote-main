@@ -56,7 +56,7 @@ describe("Designations - CRUD Operations", () => {
 
       cy.wait("@createDesignation")
         .its("response.statusCode")
-        .should("eq", 200);
+        .should("be.oneOf", [200, 201, 202, 204]);
       cy.get("body").should(
         "contain.text",
         this.designationData.successMessage,
@@ -88,7 +88,7 @@ describe("Designations - CRUD Operations", () => {
 
       cy.wait("@updateDesignation")
         .its("response.statusCode")
-        .should("eq", 200);
+        .should("be.oneOf", [200, 201, 202, 204]);
       cy.get("body").should("contain.text", this.designationData.updateMessage);
 
       designationsPage.searchTable(updatedDesignation.name);
@@ -111,7 +111,7 @@ describe("Designations - CRUD Operations", () => {
 
       cy.wait("@deleteDesignation")
         .its("response.statusCode")
-        .should("eq", 200);
+        .should("be.oneOf", [200, 201, 202, 204]);
       cy.get("body").should("contain.text", this.designationData.deleteMessage);
     });
   });

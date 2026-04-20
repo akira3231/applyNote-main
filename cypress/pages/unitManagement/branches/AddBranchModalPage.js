@@ -1,4 +1,6 @@
-class AddBranchModalPage {
+const BaseTablePage = require("../../common/BaseTablePage");
+
+class AddBranchModalPage extends BaseTablePage {
   get modalTitle() {
     return cy.contains("h2, .modal-title", "Add Branch");
   }
@@ -44,14 +46,6 @@ class AddBranchModalPage {
 
   get locationInfoSection() {
     return cy.contains("button, div, h3", "Location Info");
-  }
-
-  selectFromDropdown(value) {
-    cy.get("body")
-      .find('[role="option"]')
-      .should("be.visible")
-      .contains(value)
-      .click({ force: true });
   }
 
   fillForm(branchData) {

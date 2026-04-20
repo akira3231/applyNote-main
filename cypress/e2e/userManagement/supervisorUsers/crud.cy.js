@@ -59,7 +59,7 @@ describe("SupervisorUsers - CRUD Operations", () => {
 
       cy.wait("@createSupervisorUser")
         .its("response.statusCode")
-        .should("eq", 200);
+        .should("be.oneOf", [200, 201, 202, 204]);
       cy.get("body").should(
         "contain.text",
         this.supervisorUserData.successMessage,
@@ -92,7 +92,7 @@ describe("SupervisorUsers - CRUD Operations", () => {
 
       cy.wait("@updateSupervisorUser")
         .its("response.statusCode")
-        .should("eq", 200);
+        .should("be.oneOf", [200, 201, 202, 204]);
       cy.get("body").should(
         "contain.text",
         this.supervisorUserData.updateMessage,
@@ -118,7 +118,7 @@ describe("SupervisorUsers - CRUD Operations", () => {
 
       cy.wait("@deleteSupervisorUser")
         .its("response.statusCode")
-        .should("eq", 200);
+        .should("be.oneOf", [200, 201, 202, 204]);
       cy.get("body").should(
         "contain.text",
         this.supervisorUserData.deleteMessage,

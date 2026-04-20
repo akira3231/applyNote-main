@@ -13,15 +13,14 @@
   },
 
   "updatedAgreement": {
-    "institution": "University of Sydney",
-    "invoicingName": "Sydney University Agreement Updated",
+    "institution": "University of Queensland",
+    "invoicingName": "Queensland University Agreement Updated",
     "countries": ["Nepal"],
-    "startDate": "2025-06-01",
-    "endDate": "2027-06-30",
-    "blacklist": false,
+    "startDate": "1995-06-01",
+    "endDate": "2005-06-30",
+    "blacklist": true,
     "comments": "QA Test Agreement Updated",
-    "commissionType": "progressive",
-    "commissionAmount": 5
+    "attachments": ["cypress/fixtures/files/file-example_PDF_500_kB.pdf"]
   },
 
   "successMessage": "Agreement created successfully",

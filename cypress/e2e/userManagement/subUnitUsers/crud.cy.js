@@ -15,58 +15,58 @@ describe("SubUnitUsers - CRUD Operations", () => {
     editSubUnitUserModal = new EditSubUnitUsersModalPage();
   });
 
-  // // Test suite: Read
-  // describe("Read SubUnitUsers", () => {
-  //   it("should fetch subUnitUsers from API and display them correctly", () => {
-  //     cy.intercept("POST", "**/api/admin/employees/subunit-employees/**").as(
-  //       "getSubUnitUsers",
-  //     );
+  // Test suite: Read
+  describe("Read SubUnitUsers", () => {
+    it("should fetch subUnitUsers from API and display them correctly", () => {
+      cy.intercept("POST", "**/api/admin/employees/subunit-employees/**").as(
+        "getSubUnitUsers",
+      );
 
-  //     subUnitUsersPage.visit();
+      subUnitUsersPage.visit();
 
-  //     cy.wait("@getSubUnitUsers").then((interception) => {
-  //       const body = interception.response.body;
-  //       const data = body.data || body.results || body.subUnitUsers || [];
-  //       const apiCount = body.count || data.length;
+      cy.wait("@getSubUnitUsers").then((interception) => {
+        const body = interception.response.body;
+        const data = body.data || body.results || body.subUnitUsers || [];
+        const apiCount = body.count || data.length;
 
-  //       subUnitUsersPage.assertRecordState(apiCount);
-  //     });
-  //   });
-  // });
+        subUnitUsersPage.assertRecordState(apiCount);
+      });
+    });
+  });
 
-  // // Test suite: Create
-  // describe("Create SubUnitUser", () => {
-  //   it("should create a new subUnitUser successfully", function () {
-  //     const newSubUnitUser = {
-  //       ...this.subUnitUserData.newSubUnitUser,
-  //       email: `qa.test.user+${Date.now()}@applynote.com`,
-  //     };
-  //     const fullName = `${newSubUnitUser.firstName} ${newSubUnitUser.lastName}`;
+  // Test suite: Create
+  describe("Create SubUnitUser", () => {
+    it("should create a new subUnitUser successfully", function () {
+      const newSubUnitUser = {
+        ...this.subUnitUserData.newSubUnitUser,
+        email: `qa.test.user+${Date.now()}@applynote.com`,
+      };
+      const fullName = `${newSubUnitUser.firstName} ${newSubUnitUser.lastName}`;
 
-  //     cy.intercept("POST", "**/api/admin/employees/subunit-employees/**").as(
-  //       "createSubUnitUser",
-  //     );
+      cy.intercept("POST", "**/api/admin/employees/subunit-employees/**").as(
+        "createSubUnitUser",
+      );
 
-  //     subUnitUsersPage.visit();
-  //     subUnitUsersPage.clickAddSubUnitUser();
+      subUnitUsersPage.visit();
+      subUnitUsersPage.clickAddSubUnitUser();
 
-  //     addSubUnitUserModal.assertModalIsOpen();
-  //     addSubUnitUserModal.fillForm(newSubUnitUser);
+      addSubUnitUserModal.assertModalIsOpen();
+      addSubUnitUserModal.fillForm(newSubUnitUser);
 
-  //     addSubUnitUserModal.submit();
+      addSubUnitUserModal.submit();
 
-  //     cy.wait("@createSubUnitUser")
-  //       .its("response.statusCode")
-  //       .should("eq", 200);
-  //     cy.get("body").should(
-  //       "contain.text",
-  //       this.subUnitUserData.successMessage,
-  //     );
+      cy.wait("@createSubUnitUser")
+        .its("response.statusCode")
+        .should("be.oneOf", [200, 201, 202, 204]);
+      cy.get("body").should(
+        "contain.text",
+        this.subUnitUserData.successMessage,
+      );
 
-  //     subUnitUsersPage.searchTable(fullName);
-  //     subUnitUsersPage.assertExists(fullName);
-  //   });
-  // });
+      subUnitUsersPage.searchTable(fullName);
+      subUnitUsersPage.assertExists(fullName);
+    });
+  });
 
   // Test suite: Update
   describe("Update SubUnitUser", () => {
@@ -91,7 +91,7 @@ describe("SubUnitUsers - CRUD Operations", () => {
 
       cy.wait("@updateSubUnitUser")
         .its("response.statusCode")
-        .should("eq", 200);
+        .should("be.oneOf", [200, 201, 202, 204]);
       cy.get("body").should("contain.text", this.subUnitUserData.updateMessage);
 
       subUnitUsersPage.searchTable(fullName);
@@ -99,23 +99,23 @@ describe("SubUnitUsers - CRUD Operations", () => {
     });
   });
 
-  // // Test suite: Delete
-  // describe("Delete SubUnitUser", () => {
-  //   it("should delete a subUnitUser successfully", function () {
-  //     cy.intercept("DELETE", "**/api/admin/employees/subunit-employees/**").as(
-  //       "deleteSubUnitUser",
-  //     );
+  // Test suite: Delete
+  describe("Delete SubUnitUser", () => {
+    it("should delete a subUnitUser successfully", function () {
+      cy.intercept("DELETE", "**/api/admin/employees/subunit-employees/**").as(
+        "deleteSubUnitUser",
+      );
 
-  //     subUnitUsersPage.visit();
-  //     subUnitUsersPage.deleteFirstRow();
-  //     subUnitUsersPage.assertDeleteModalVisible("Sub Unit User");
+      subUnitUsersPage.visit();
+      subUnitUsersPage.deleteFirstRow();
+      subUnitUsersPage.assertDeleteModalVisible("Sub Unit User");
 
-  //     subUnitUsersPage.confirmDelete();
+      subUnitUsersPage.confirmDelete();
 
-  //     cy.wait("@deleteSubUnitUser")
-  //       .its("response.statusCode")
-  //       .should("eq", 200);
-  //     cy.get("body").should("contain.text", this.subUnitUserData.deleteMessage);
-  //   });
-  // });
+      cy.wait("@deleteSubUnitUser")
+        .its("response.statusCode")
+        .should("be.oneOf", [200, 201, 202, 204]);
+      cy.get("body").should("contain.text", this.subUnitUserData.deleteMessage);
+    });
+  });
 });

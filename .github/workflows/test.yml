@@ -15,10 +15,10 @@ jobs:
       contents: write
 
     env:
-      EMAIL: ${{ secrets.EMAIL }}
-      PASSWORD: ${{ secrets.PASSWORD }}
+      GMAIL_PASSWORD: ${{ secrets.GMAIL_PASSWORD }}
       GMAIL_USER: ${{ secrets.GMAIL_USER }}
       GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+      BASE_URL: ${{ secrets.BASE_URL }}
 
     steps:
       - name: Checkout repository
@@ -46,12 +46,22 @@ jobs:
       - name: Verify Cypress
         run: npx cypress verify
 
+      # ================= CREATE ENV FILE =================
+      - name: Create .env file
+        run: |
+          touch .env
+          echo "GMAIL_USER=${{ secrets.GMAIL_USER }}" >> .env
+          echo "GMAIL_PASSWORD=${{ secrets.GMAIL_PASSWORD }}" >> .env
+          echo "BASE_URL=${{ secrets.BASE_URL }}" >> .env
+          echo "GMAIL_APP_PASSWORD=${{ secrets.GMAIL_APP_PASSWORD }}" >> .env
+
       # ================= RUN TESTS =================
       - name: Run Cypress tests
         run: |
           rm -rf allure-results
-          mkdir -p allure-results
-          npx cypress run --browser chrome
+           mkdir -p allure-results
+           # Target all nested folders in e2e
+           npx cypress run --browser edge --spec "cypress/e2e/**/*.cy.js"
         continue-on-error: true
 
       # ================= DEBUG (OPTIONAL BUT USEFUL) =================
@@ -74,4 +84,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./allure-report
           publish_branch: gh-pages
-          force_orphan: true
+          keep_files: false

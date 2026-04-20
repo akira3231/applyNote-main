@@ -103,6 +103,131 @@ class BaseTablePage {
       cy.get("tbody tr").should("have.length.gt", 0);
     }
   }
+
+  selectFromDropdown(value) {
+    cy.contains('[role="option"]', value)
+      .scrollIntoView()
+      .should("be.visible")
+      .click();
+  }
+
+  selectWithSearch(triggerEl, value) {
+    triggerEl.then(($btn) => {
+      cy.wrap($btn).click({ force: true });
+
+      cy.get('[cmdk-root] input[placeholder="Search..."]', { timeout: 10000 })
+        .filter(":visible")
+        .first()
+        .clear({ force: true })
+        .type(value, { force: true });
+
+      cy.get("[cmdk-item]", { timeout: 10000 })
+        .filter(":visible")
+        .contains(value)
+        .click({ force: true });
+    });
+  }
+
+  updateField(input, newValue) {
+    if (!newValue) return;
+
+    input.then(($el) => {
+      const currentValue = $el.val?.() ?? $el.text?.();
+      if (currentValue !== newValue) {
+        cy.wrap($el).clear().type(String(newValue));
+      }
+    });
+  }
+
+  updateRadixDropdown(triggerEl, value) {
+    if (!value) return;
+    triggerEl.then(($btn) => {
+      const current = $btn.text().replace(/\s+/g, " ").trim();
+      if (current === value) return;
+      cy.wrap($btn).click({ force: true });
+      cy.contains('[role="option"]', value)
+        .scrollIntoView()
+        .should("be.visible")
+        .click();
+    });
+  }
+
+  updateDropdownWithSearch(triggerEl, value) {
+    if (!value) return;
+    triggerEl.then(($btn) => {
+      const current = $btn.text().replace(/\s+/g, " ").trim();
+      if (current === value) return;
+      cy.wrap($btn).click({ force: true });
+      cy.get('[cmdk-root] input[placeholder="Search..."]', { timeout: 10000 })
+        .filter(":visible")
+        .first()
+        .clear({ force: true })
+        .type(value, { force: true });
+      cy.get("[cmdk-item]", { timeout: 10000 })
+        .filter(":visible")
+        .contains(value)
+        .click({ force: true });
+    });
+  }
+  setDate(btnOrDateString, dateString) {
+    let btn, date;
+    if (typeof btnOrDateString === "string") {
+      date = btnOrDateString;
+      btn = this.dateOfBirthBtn;
+    } else {
+      btn = btnOrDateString;
+      date = dateString;
+    }
+
+    if (!date) return;
+
+    const [year, month, day] = date.split("-");
+    const monthIndex = parseInt(month) - 1;
+
+    btn.click({ force: true });
+
+    cy.get('[data-slot="calendar"]', { timeout: 10000 })
+      .last()
+      .within(() => {
+        cy.get("select.rdp-months_dropdown").select(String(monthIndex), {
+          force: true,
+        });
+        cy.get("select.rdp-years_dropdown").select(year, { force: true });
+      });
+
+    cy.get(`[data-day="${year}-${month}-${day}"] button`)
+      .last()
+      .click({ force: true });
+  }
+  selectCountries(countries, triggerEl = null) {
+    if (!countries || !countries.length) return;
+
+    // Use passed trigger or fall back to common getters
+    const trigger =
+      triggerEl || this.countriesAllowedSelect || this.countriesSelect;
+
+    // Open the dropdown
+    trigger.should("be.visible").click({ force: true });
+
+    // Wait a bit for the listbox/popover to render
+    cy.wait(400);
+
+    countries.forEach((country, index) => {
+      cy.contains(
+        '[role="option"]',
+        new RegExp(`^${country}$`, "i"), // exact match, case-insensitive
+        { timeout: 10000 },
+      )
+        .scrollIntoView({ block: "center" })
+        .should("be.visible")
+        .click({ force: true });
+
+      // Small delay between selections (important for multi-select UIs)
+      if (index < countries.length - 1) {
+        cy.wait(250);
+      }
+    });
+  }
 }
 
 module.exports = BaseTablePage;
