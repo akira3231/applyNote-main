@@ -1,6 +1,11 @@
 const BaseTablePage = require("../../common/BaseTablePage");
+const UnitFilter = require("../global/filters/unitFiltersPages.js");
 
 class BranchesPage extends BaseTablePage {
+  constructor() {
+    super();
+    this.filter = new UnitFilter();
+  }
   get addBranchBtn() {
     return cy.contains("button", "Add Branch");
   }
@@ -25,6 +30,23 @@ class BranchesPage extends BaseTablePage {
 
   toggleStatus(name) {
     this.getRowByText(name).find('button[role="switch"]').click();
+  }
+
+  openFilter() {
+    cy.contains("button", "Filter").click();
+  }
+
+  applyFilter(filterData) {
+    this.openFilter();
+    this.filter.applyFilters(filterData);
+    this.waitForTable();
+  }
+
+  resetFilters() {
+    this.openFilter();
+    this.filter.reset();
+    this.filter.applyBtn.click();
+    this.waitForTable();
   }
 
   openFirstBranchPartnerAgents() {

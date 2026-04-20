@@ -2,15 +2,12 @@ class BaseTablePage {
   get table() {
     return cy.get("table");
   }
-
   get tableRows() {
     return this.table.find("tbody tr");
   }
-
   get mainSearchInput() {
     return cy.get('input[placeholder="Search..."]').first();
   }
-
   get tableSearchInput() {
     return cy.get('input[placeholder="Search..."]').last();
   }
@@ -62,9 +59,11 @@ class BaseTablePage {
       .should("be.visible")
       .click({ force: true });
   }
+
   editFirstRow() {
     this.clickFirstRowAction(/edit/i);
   }
+
   deleteFirstRow() {
     this.clickFirstRowAction(/delete/i);
   }
@@ -169,6 +168,7 @@ class BaseTablePage {
         .click({ force: true });
     });
   }
+
   setDate(btnOrDateString, dateString) {
     let btn, date;
     if (typeof btnOrDateString === "string") {
@@ -199,6 +199,60 @@ class BaseTablePage {
       .last()
       .click({ force: true });
   }
+
+  setDateRange(btn, startDate, endDate) {
+    if (!startDate || !endDate) return;
+
+    const pickDay = (dateStr) => {
+      const target = new Date(dateStr);
+      const targetYear = target.getFullYear();
+      const targetMonth = target.getMonth();
+      const dayNum = target.getDate();
+
+      cy.get('[data-slot="calendar"]')
+        .as("calendar")
+        .find(".rdp-caption_label")
+        .first()
+        .then(($label) => {
+          const text = $label.text().trim();
+          const [monthName, yearStr] = text.split(" ");
+          const currentYear = parseInt(yearStr);
+          const currentMonth = new Date(`${monthName} 1`).getMonth();
+
+          const monthsToClick =
+            (targetYear - currentYear) * 12 + (targetMonth - currentMonth);
+
+          if (monthsToClick > 0) {
+            Cypress._.times(monthsToClick, () => {
+              cy.get("@calendar")
+                .find("button.rdp-button_next")
+                .click({ force: true });
+            });
+          } else if (monthsToClick < 0) {
+            Cypress._.times(Math.abs(monthsToClick), () => {
+              cy.get("@calendar")
+                .find("button.rdp-button_previous")
+                .click({ force: true });
+            });
+          }
+        });
+
+      cy.get("@calendar")
+        .find("td:not(.rdp-outside) button.rdp-day_button:not(.rdp-outside)")
+        .contains(new RegExp(`^${dayNum}$`))
+        .last()
+        .scrollIntoView({ offset: { top: -100 } })
+        .click();
+    };
+
+    btn.click();
+    cy.get('[data-slot="calendar"]').should("exist");
+    pickDay(startDate);
+    btn.click();
+    cy.get('[data-slot="calendar"]').should("exist");
+    pickDay(endDate);
+  }
+
   selectCountries(countries, triggerEl = null) {
     if (!countries || !countries.length) return;
 
