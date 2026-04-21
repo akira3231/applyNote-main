@@ -1,6 +1,11 @@
 const BaseTablePage = require("../../../common/BaseTablePage");
+const UnitFilter = require("../../global/filters/unitFiltersPages.js");
 
 class PartnerAgentsPage extends BaseTablePage {
+  constructor() {
+    super();
+    this.filter = new UnitFilter();
+  }
   get addPartnerAgentBtn() {
     return cy.contains("button", "Add Partner Agent");
   }
@@ -27,6 +32,23 @@ class PartnerAgentsPage extends BaseTablePage {
     this.getRowByText(name)
       .find('button[role="switch"]')
       .click({ force: true });
+  }
+
+  openFilter() {
+    cy.contains("button", "Filter").click();
+  }
+
+  applyFilter(filterData) {
+    this.openFilter();
+    this.filter.applyFilters(filterData);
+    this.waitForTable();
+  }
+
+  resetFilters() {
+    this.openFilter();
+    this.filter.reset();
+    this.filter.applyBtn.click();
+    this.waitForTable();
   }
 }
 

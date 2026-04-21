@@ -19,8 +19,10 @@ class UnitFilter extends BaseTablePage {
   }
   get statusRadio() {
     return {
-      active: cy.get('input[id="status-Active"]'),
-      inactive: cy.get('input[id="status-inactive"]'),
+      active: cy.get('input[id="status-Active"], input[id="status-active"]'),
+      inactive: cy.get(
+        'input[id="status-Inactive"], input[id="status-inactive"]',
+      ),
     };
   }
   get applyBtn() {
@@ -47,8 +49,9 @@ class UnitFilter extends BaseTablePage {
   }
 
   applyFilters(filterData = {}) {
-    if (filterData.country)
+    if (filterData.country) {
       this.selectWithSearch(this.countrySelect, filterData.country);
+    }
     if (filterData.status) this.selectStatus(filterData.status);
     if (filterData.commissionRate) {
       this.commissionRateSelect.click();

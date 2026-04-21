@@ -114,7 +114,7 @@ class BaseTablePage {
     triggerEl.then(($btn) => {
       cy.wrap($btn).click({ force: true });
 
-      cy.get('[cmdk-root] input[placeholder="Search..."]', { timeout: 10000 })
+      cy.get('[cmdk-root] input[placeholder*="Search"]', { timeout: 10000 })
         .filter(":visible")
         .first()
         .clear({ force: true })
