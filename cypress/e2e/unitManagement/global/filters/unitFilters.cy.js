@@ -2,12 +2,14 @@ const UnitFiltersPage = require("../../../../pages/unitManagement/global/filters
 const BranchesPage = require("../../../../pages/unitManagement/branches/BranchesPage.js");
 const PartnerAgentsPage = require("../../../../pages/unitManagement/branches/partnerAgents/PartnerAgentsPage.js");
 const PartnersPage = require("../../../../pages/unitManagement/partners/PartnersPage.js");
+const SchoolsPage = require("../../../../pages/unitManagement/schools/SchoolsPage.js");
 
 describe("Unit Filters Test Suite", () => {
   const unitFiltersPage = new UnitFiltersPage();
   const branchesPage = new BranchesPage();
   const partnerAgentsPage = new PartnerAgentsPage();
   const partnersPage = new PartnersPage();
+  const schoolsPage = new SchoolsPage();
 
   let filterData;
 
@@ -138,6 +140,45 @@ describe("Unit Filters Test Suite", () => {
       cy.wait("@getPartners");
 
       partnersPage.openFilter();
+      unitFiltersPage.reset(true);
+
+      cy.get("tbody tr").should("have.length.at.least", 1);
+    });
+  });
+
+  describe("School Filters", () => {
+    beforeEach(() => {
+      schoolsPage.visit();
+    });
+
+    it("should apply filters correctly for School", () => {
+      cy.intercept("POST", "**/api/admin/schools/**").as("getSchools");
+
+      const { country, ...schoolFilterData } = filterData;
+      schoolsPage.applyFilter(schoolFilterData);
+      cy.wait("@getSchools");
+
+      cy.get("tbody tr").should("have.length.at.least", 1);
+
+      cy.get('[role="switch"][aria-checked="false"]').should("not.exist");
+      cy.get("thead th").then(($headers) => {
+        const countryIndex = [...$headers].findIndex(($th) =>
+          $th.innerText.trim().toLowerCase().includes("country"),
+        );
+
+        cy.get("tbody tr").each(($row) => {
+          cy.wrap($row).find("td").eq(countryIndex).invoke("text");
+        });
+      });
+    });
+
+    it("should reset filters for School", () => {
+      cy.intercept("POST", "**/api/admin/schools/**").as("getSchools");
+      const { country, ...schoolFilterData } = filterData;
+      schoolsPage.applyFilter(schoolFilterData);
+      cy.wait("@getSchools");
+
+      schoolsPage.openFilter();
       unitFiltersPage.reset(true);
 
       cy.get("tbody tr").should("have.length.at.least", 1);
