@@ -1,6 +1,11 @@
 const BaseTablePage = require("../../../common/BaseTablePage");
+const UnitFilter = require("../../global/filters/unitFiltersPages.js");
 
 class PartnerAgentsPage extends BaseTablePage {
+  constructor() {
+    super();
+    this.filter = new UnitFilter();
+  }
   get addPartnerAgentBtn() {
     return cy.contains("button", "Add Partner Agent");
   }

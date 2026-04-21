@@ -114,7 +114,7 @@ class BaseTablePage {
     triggerEl.then(($btn) => {
       cy.wrap($btn).click({ force: true });
 
-      cy.get('[cmdk-root] input[placeholder="Search..."]', { timeout: 10000 })
+      cy.get('[cmdk-root] input[placeholder*="Search"]', { timeout: 10000 })
         .filter(":visible")
         .first()
         .clear({ force: true })
@@ -281,6 +281,23 @@ class BaseTablePage {
         cy.wait(250);
       }
     });
+  }
+
+  openFilter() {
+    cy.contains("button", "Filter").click();
+  }
+
+  applyFilter(filterData) {
+    this.openFilter();
+    this.filter.applyFilters(filterData);
+    this.waitForTable();
+  }
+
+  resetFilters() {
+    this.openFilter();
+    this.filter.reset();
+    this.filter.applyBtn.click();
+    this.waitForTable();
   }
 }
 
