@@ -1,0 +1,11 @@
+{
+  "first_name": "John",
+  "last_name": "Doe",
+  "email": "john.doe@example.com",
+  "country_code": "+1",
+  "phone": "5551234567",
+  "country": "United States",
+  "preferred_country": "Canada",
+  "subject": "Support",
+  "message": "This is a test message from automation"
+}
