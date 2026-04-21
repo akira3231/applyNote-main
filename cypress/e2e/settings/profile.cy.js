@@ -34,8 +34,8 @@ describe('User Settings Profile', () => {
       settingsPage.saveProfile();
       
       // Assertions
-      settingsPage.assertExists(profileData.firstName);
-      settingsPage.assertExists(profileData.lastName);
+      settingsPage.assertExistsGeneral(profileData.firstName);
+      settingsPage.assertExistsGeneral(profileData.lastName);
     });
   });
 });
