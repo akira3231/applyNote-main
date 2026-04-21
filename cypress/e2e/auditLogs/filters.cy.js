@@ -9,7 +9,7 @@ describe("Audit Logs Test Suite", () => {
 
   beforeEach(() => {
     cy.loginWithSession();
-    cy.fixture("auditLogs/filter.json").then((data) => {
+    cy.fixture("auditLogs/filters.json").then((data) => {
       filterData = data;
     });
     auditLogsPage.visit();
