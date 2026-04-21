@@ -100,15 +100,11 @@ class BasicReportsPage extends BaseTablePage {
     });
   }
 
-  getStudentStatCards() {
-    return cy.get('[id$="-content-unit-students"] .grid.grid-cols-4 > div');
-  }
-
-  captureStudentCardValues() {
+  captureStudentCardValues(tabSuffix = "unit-students") {
     cy.wait(1000);
     const values = {};
     return cy
-      .get('[id$="-content-unit-students"] .grid.grid-cols-4 > div')
+      .get(`[id$="-content-${tabSuffix}"] .grid.grid-cols-4 > div`)
       .then(($cards) => {
         $cards.each((i, card) => {
           const label = card.querySelector(".text-h5")?.innerText?.trim();
@@ -118,11 +114,11 @@ class BasicReportsPage extends BaseTablePage {
         return values;
       });
   }
-
-  captureChartLegendValues() {
+  
+  captureChartLegendValues(tabSuffix = "unit-students") {
     cy.wait(1000);
     const values = {};
-    return cy.get('[id$="-content-unit-students"] ul').then(($lists) => {
+    return cy.get(`[id$="-content-${tabSuffix}"] ul`).then(($lists) => {
       $lists.each((i, list) => {
         list.querySelectorAll("li").forEach((li) => {
           const spans = li.querySelectorAll("span");
