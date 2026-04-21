@@ -1,6 +1,6 @@
-const AgreementsPage = require("../../pages/agreement/AgreementsPage.js");
-const AddAgreementModalPage = require("../../pages/agreement/AddAgreementsModalPage.js");
-const EditAgreementModalPage = require("../../pages/agreement/EditAgreementsModalPage.js");
+const AgreementsPage = require("../../pages/agreements/AgreementsPage.js");
+const AddAgreementModalPage = require("../../pages/agreements/AddAgreementsModalPage.js");
+const EditAgreementModalPage = require("../../pages/agreements/EditAgreementsModalPage.js");
 
 describe("Agreements - CRUD Operations", () => {
   let agreementsPage;
@@ -9,7 +9,7 @@ describe("Agreements - CRUD Operations", () => {
 
   beforeEach(() => {
     cy.loginWithSession();
-    cy.fixture("/agreement/crud.json").as("agreementData");
+    cy.fixture("/agreements/crud.json").as("agreementData");
   });
 
   agreementsPage = new AgreementsPage();
