@@ -30,10 +30,12 @@ module.exports = {
 
       // ================= ENV =================
       // config.env.EMAIL = process.env.EMAIL;
+      // Admin
       config.env.BASE_URL = process.env.BASE_URL;
       config.env.GMAIL_PASSWORD = process.env.GMAIL_PASSWORD;
       config.env.GMAIL_USER = process.env.GMAIL_USER;
       config.env.GMAIL_APP_PASSWORD = process.env.GMAIL_APP_PASSWORD;
+
 
       // ================= TASKS =================
       on("task", {
