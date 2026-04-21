@@ -290,7 +290,6 @@ class BaseTablePage {
   applyFilter(filterData) {
     this.openFilter();
     this.filter.applyFilters(filterData);
-    this.waitForTable();
   }
 
   resetFilters() {
