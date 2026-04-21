@@ -7,7 +7,7 @@ describe('Website About Page', () => {
     cy.visit('https://applynote.com');
   });
 
-  it('should_load_about_page_and_scroll_to_bottom', () => {
+  it('should load about page and scroll to bottom', () => {
     aboutPage.visitAboutPage();
     aboutPage.verifyPageLoaded();
     aboutPage.verifyAllComponents();
