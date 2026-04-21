@@ -13,113 +13,113 @@ describe("Basic Reports Filters Test Suite", () => {
     basicReportsPage.visit();
   });
 
-  //   describe("Unit Commissions Filters", () => {
-  //     beforeEach(() => {
-  //       cy.fixture("reports/basicReports/unitCommissionsFilters.json").then(
-  //         (data) => {
-  //           filterData = data;
-  //         },
-  //       );
-  //       cy.intercept("GET", "**/api/admin/reports/basic/**").as("getPageLoad");
-  //       basicReportsPage.visit();
-  //       cy.wait("@getPageLoad");
-  //     });
+  describe("Unit Commissions Filters", () => {
+    beforeEach(() => {
+      cy.fixture("reports/basicReports/unitCommissionsFilters.json").then(
+        (data) => {
+          filterData = data;
+        },
+      );
+      cy.intercept("GET", "**/api/admin/reports/basic/**").as("getPageLoad");
+      basicReportsPage.visit();
+      cy.wait("@getPageLoad");
+    });
 
-  //     it("should apply filters correctly for Unit Commissions", () => {
-  //       cy.intercept("GET", "**/api/admin/reports/basic/**").as(
-  //         "getUnitCommissions",
-  //       );
+    it("should apply filters correctly for Unit Commissions", () => {
+      cy.intercept("GET", "**/api/admin/reports/basic/**").as(
+        "getUnitCommissions",
+      );
 
-  //       basicReportsPage.captureCardValues().then((beforeValues) => {
-  //         basicReportsPage.applyFilters(filterData);
-  //         cy.wait("@getUnitCommissions");
+      basicReportsPage.captureCardValues().then((beforeValues) => {
+        basicReportsPage.applyFilters(filterData);
+        cy.wait("@getUnitCommissions");
 
-  //         basicReportsPage.captureCardValues().then((afterValues) => {
-  //           expect(JSON.stringify(afterValues)).not.to.eq(
-  //             JSON.stringify(beforeValues),
-  //           );
-  //         });
-  //       });
-  //     });
+        basicReportsPage.captureCardValues().then((afterValues) => {
+          expect(JSON.stringify(afterValues)).not.to.eq(
+            JSON.stringify(beforeValues),
+          );
+        });
+      });
+    });
 
-  //     it("should reset filters and restore original values", () => {
-  //       basicReportsPage.captureCardValues().then((baselineValues) => {
-  //         cy.intercept("GET", "**/api/admin/reports/basic/**").as("afterFilter");
-  //         basicReportsPage.applyFilters(filterData);
-  //         cy.wait("@afterFilter");
+    it("should reset filters and restore original values", () => {
+      basicReportsPage.captureCardValues().then((baselineValues) => {
+        cy.intercept("GET", "**/api/admin/reports/basic/**").as("afterFilter");
+        basicReportsPage.applyFilters(filterData);
+        cy.wait("@afterFilter");
 
-  //         basicReportsPage.captureCardValues().then((filteredValues) => {
-  //           basicReportsPage.reset();
+        basicReportsPage.captureCardValues().then((filteredValues) => {
+          basicReportsPage.reset();
 
-  //           cy.contains(
-  //             ".font-medium",
-  //             baselineValues["HQ Commission"]["Total Commission Expected"],
-  //           ).should("exist");
+          cy.contains(
+            ".font-medium",
+            baselineValues["HQ Commission"]["Total Commission Expected"],
+          ).should("exist");
 
-  //           basicReportsPage.captureCardValues().then((resetValues) => {
-  //             expect(JSON.stringify(resetValues)).to.eq(
-  //               JSON.stringify(baselineValues),
-  //             );
-  //           });
-  //         });
-  //       });
-  //     });
-  //   });
+          basicReportsPage.captureCardValues().then((resetValues) => {
+            expect(JSON.stringify(resetValues)).to.eq(
+              JSON.stringify(baselineValues),
+            );
+          });
+        });
+      });
+    });
+  });
 
-  //   describe("Unit Counsellor - Commissions Filters", () => {
-  //     beforeEach(() => {
-  //       cy.intercept("GET", "**/api/admin/reports/basic/**").as("getPageLoad");
-  //       basicReportsPage.visit();
-  //       basicReportsPage.navigateToUnitCounsellorCommissions();
-  //       cy.wait("@getPageLoad");
-  //     });
+  describe("Unit Counsellor - Commissions Filters", () => {
+    beforeEach(() => {
+      cy.intercept("GET", "**/api/admin/reports/basic/**").as("getPageLoad");
+      basicReportsPage.visit();
+      basicReportsPage.navigateToUnitCounsellorCommissions();
+      cy.wait("@getPageLoad");
+    });
 
-  //     it("should apply filters correctly for Unit Counsellor - Commissions", () => {
-  //       cy.intercept("GET", "**/api/admin/reports/basic/**").as(
-  //         "getUnitCommissions",
-  //       );
+    it("should apply filters correctly for Unit Counsellor - Commissions", () => {
+      cy.intercept("GET", "**/api/admin/reports/basic/**").as(
+        "getUnitCommissions",
+      );
 
-  //       basicReportsPage.captureCardValues().then((beforeValues) => {
-  //         const { country, school, ...unitCouncellorCommissionsFilterData } =
-  //           filterData;
-  //         basicReportsPage.applyFilters(unitCouncellorCommissionsFilterData);
-  //         cy.wait("@getUnitCommissions");
+      basicReportsPage.captureCardValues().then((beforeValues) => {
+        const { country, school, ...unitCouncellorCommissionsFilterData } =
+          filterData;
+        basicReportsPage.applyFilters(unitCouncellorCommissionsFilterData);
+        cy.wait("@getUnitCommissions");
 
-  //         basicReportsPage.captureCardValues().then((afterValues) => {
-  //           expect(JSON.stringify(afterValues)).not.to.eq(
-  //             JSON.stringify(beforeValues),
-  //           );
-  //         });
-  //       });
-  //     });
+        basicReportsPage.captureCardValues().then((afterValues) => {
+          expect(JSON.stringify(afterValues)).not.to.eq(
+            JSON.stringify(beforeValues),
+          );
+        });
+      });
+    });
 
-  //     it("should reset filters and restore original values", () => {
-  //       basicReportsPage.captureCardValues().then((baselineValues) => {
-  //         cy.intercept("GET", "**/api/admin/reports/basic/**").as("afterFilter");
+    it("should reset filters and restore original values", () => {
+      basicReportsPage.captureCardValues().then((baselineValues) => {
+        cy.intercept("GET", "**/api/admin/reports/basic/**").as("afterFilter");
 
-  //         const { country, school, ...unitCouncellorCommissionsFilterData } =
-  //           filterData;
-  //         basicReportsPage.applyFilters(unitCouncellorCommissionsFilterData);
+        const { country, school, ...unitCouncellorCommissionsFilterData } =
+          filterData;
+        basicReportsPage.applyFilters(unitCouncellorCommissionsFilterData);
 
-  //         cy.wait("@afterFilter");
+        cy.wait("@afterFilter");
 
-  //         basicReportsPage.captureCardValues().then((filteredValues) => {
-  //           basicReportsPage.reset();
+        basicReportsPage.captureCardValues().then((filteredValues) => {
+          basicReportsPage.reset();
 
-  //           cy.contains(
-  //             ".font-medium",
-  //             baselineValues["HQ Commission"]["Total Commission Expected"],
-  //           ).should("exist");
+          cy.contains(
+            ".font-medium",
+            baselineValues["HQ Commission"]["Total Commission Expected"],
+          ).should("exist");
 
-  //           basicReportsPage.captureCardValues().then((resetValues) => {
-  //             expect(JSON.stringify(resetValues)).to.eq(
-  //               JSON.stringify(baselineValues),
-  //             );
-  //           });
-  //         });
-  //       });
-  //     });
-  //   });
+          basicReportsPage.captureCardValues().then((resetValues) => {
+            expect(JSON.stringify(resetValues)).to.eq(
+              JSON.stringify(baselineValues),
+            );
+          });
+        });
+      });
+    });
+  });
 
   describe("Unit - Students Filters", () => {
     beforeEach(() => {
@@ -250,6 +250,66 @@ describe("Basic Reports Filters Test Suite", () => {
 
           basicReportsPage
             .captureStudentCardValues("unit-counsellor-students")
+            .then((resetCards) => {
+              expect(JSON.stringify(resetCards)).to.eq(
+                JSON.stringify(baselineCards),
+              );
+            });
+        });
+    });
+  });
+
+  describe("Report based on Schools Filters", () => {
+    beforeEach(() => {
+      cy.intercept("GET", "**/api/admin/reports/basic-student/**").as(
+        "getPageLoad",
+      );
+      basicReportsPage.visit();
+      basicReportsPage.navigateToReportBasedOnSchools();
+      cy.wait("@getPageLoad");
+    });
+
+    it("should apply filters correctly for Report based on Schools", () => {
+      basicReportsPage
+        .captureStudentCardValues("report-based-on-schools")
+        .then((beforeCards) => {
+          cy.intercept("GET", "**/api/admin/reports/basic-student/**").as(
+            "afterFilter",
+          );
+          const { counsellor, ...reportSchoolsFilterData } = filterData;
+          basicReportsPage.applyFilters(reportSchoolsFilterData);
+          cy.wait("@afterFilter");
+
+          basicReportsPage
+            .captureStudentCardValues("report-based-on-schools")
+            .then((afterCards) => {
+              expect(JSON.stringify(afterCards)).not.to.eq(
+                JSON.stringify(beforeCards),
+              );
+            });
+        });
+    });
+
+    it("should reset filters and restore original values", () => {
+      basicReportsPage
+        .captureStudentCardValues("report-based-on-schools")
+        .then((baselineCards) => {
+          cy.intercept("GET", "**/api/admin/reports/basic-student/**").as(
+            "afterFilter",
+          );
+          const { counsellor, ...reportSchoolsFilterData } = filterData;
+          basicReportsPage.applyFilters(reportSchoolsFilterData);
+          cy.wait("@afterFilter");
+
+          basicReportsPage.reset();
+
+          cy.contains(
+            '[id$="-content-report-based-on-schools"] .text-h1',
+            baselineCards["Visa Grant Commencement"],
+          ).should("exist");
+
+          basicReportsPage
+            .captureStudentCardValues("report-based-on-schools")
             .then((resetCards) => {
               expect(JSON.stringify(resetCards)).to.eq(
                 JSON.stringify(baselineCards),

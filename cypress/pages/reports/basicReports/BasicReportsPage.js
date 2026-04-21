@@ -28,7 +28,7 @@ class BasicReportsPage extends BaseTablePage {
   }
   get countrySelect() {
     return cy
-      .contains('button[role="combobox"]', "Select Country")
+      .contains('button[role="combobox"]', "Select country")
       .filter(":visible");
   }
   get schoolSelect() {
@@ -114,7 +114,7 @@ class BasicReportsPage extends BaseTablePage {
         return values;
       });
   }
-  
+
   captureChartLegendValues(tabSuffix = "unit-students") {
     cy.wait(1000);
     const values = {};
@@ -151,9 +151,12 @@ class BasicReportsPage extends BaseTablePage {
       this.selectWithSearch(this.counsellorSelect, filterData.counsellor);
     }
     if (filterData.country) {
+      cy.wait(250);
+
       this.selectWithSearch(this.countrySelect, filterData.country);
     }
     if (filterData.school) {
+      cy.wait(250);
       this.selectWithSearch(this.schoolSelect, filterData.school);
     }
     this.applyBtn.click();
