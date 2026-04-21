@@ -90,6 +90,10 @@ class BaseTablePage {
     cy.contains("td", text).should("be.visible");
   }
 
+  assertExistsGeneral(text) {
+    cy.contains(text).should("be.visible");
+  }
+
   assertNotExists(text) {
     cy.contains("td", text).should("not.exist");
   }

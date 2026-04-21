@@ -1,0 +1,14 @@
+{
+  "displayName": "applyNote",
+  "legalName": "Apply Note",
+  "website": "https://applynote.com",
+  "email": "info@applynote.com",
+  "phone": "+61 2 1234 5678",
+  "description": "Apply Note",
+  "street": "Koteshwor",
+  "aptSuite": "apt-123",
+  "city": "Sydney",
+  "state": "New South Wales",
+  "postalCode": "2000",
+  "country": "Australia"
+}
