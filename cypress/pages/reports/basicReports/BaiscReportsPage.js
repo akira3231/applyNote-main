@@ -23,7 +23,7 @@ class BasicReportsPage extends BaseTablePage {
   }
   get counsellorSelect() {
     return cy
-      .contains('button[role="combobox"]', "Select Counsellor")
+      .contains('button[role="combobox"]', "Select counsellor")
       .filter(":visible");
   }
   get countrySelect() {
@@ -41,6 +41,37 @@ class BasicReportsPage extends BaseTablePage {
   }
   get resetBtn() {
     return cy.contains("button", "Reset");
+  }
+  get unitCommissionsTab() {
+    return cy.get('[id$="-trigger-unit-commissions"]');
+  }
+  get unitCounsellorCommissionsTab() {
+    return cy.get('[id$="-trigger-unit-counsellor-commissions"]');
+  }
+  get unitStudentsTab() {
+    return cy.get('[id$="-trigger-unit-students"]');
+  }
+  get unitCounsellorStudentsTab() {
+    return cy.get('[id$="-trigger-unit-counsellor-students"]');
+  }
+  get reportBasedOnSchoolsTab() {
+    return cy.get('[id$="-trigger-report-based-on-schools"]');
+  }
+
+  navigateToUnitCommissions() {
+    this.unitCommissionsTab.click();
+  }
+  navigateToUnitCounsellorCommissions() {
+    this.unitCounsellorCommissionsTab.click();
+  }
+  navigateToUnitStudents() {
+    this.unitStudentsTab.click();
+  }
+  navigateToUnitCounsellorStudents() {
+    this.unitCounsellorStudentsTab.click();
+  }
+  navigateToReportBasedOnSchools() {
+    this.reportBasedOnSchoolsTab.click();
   }
 
   getStatCards() {
@@ -69,6 +100,7 @@ class BasicReportsPage extends BaseTablePage {
     });
   }
 
+  
   applyFilters(filterData = {}) {
     if (filterData.dateFrom)
       this.setDate(this.dateFromBtn, filterData.dateFrom);
