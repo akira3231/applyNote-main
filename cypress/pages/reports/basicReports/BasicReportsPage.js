@@ -100,7 +100,41 @@ class BasicReportsPage extends BaseTablePage {
     });
   }
 
-  
+  getStudentStatCards() {
+    return cy.get('[id$="-content-unit-students"] .grid.grid-cols-4 > div');
+  }
+
+  captureStudentCardValues() {
+    cy.wait(1000);
+    const values = {};
+    return cy
+      .get('[id$="-content-unit-students"] .grid.grid-cols-4 > div')
+      .then(($cards) => {
+        $cards.each((i, card) => {
+          const label = card.querySelector(".text-h5")?.innerText?.trim();
+          const value = card.querySelector(".text-h1")?.innerText?.trim();
+          if (label && value) values[label] = value;
+        });
+        return values;
+      });
+  }
+
+  captureChartLegendValues() {
+    cy.wait(1000);
+    const values = {};
+    return cy.get('[id$="-content-unit-students"] ul').then(($lists) => {
+      $lists.each((i, list) => {
+        list.querySelectorAll("li").forEach((li) => {
+          const spans = li.querySelectorAll("span");
+          const label = spans[0]?.innerText?.replace(":", "").trim();
+          const value = spans[1]?.innerText?.trim();
+          if (label && value) values[label] = value;
+        });
+      });
+      return values;
+    });
+  }
+
   applyFilters(filterData = {}) {
     if (filterData.dateFrom)
       this.setDate(this.dateFromBtn, filterData.dateFrom);

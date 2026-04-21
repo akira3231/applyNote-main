@@ -1,4 +1,4 @@
-const BasicReportsPage = require("../../../pages/reports/basicReports/BaiscReportsPage");
+const BasicReportsPage = require("../../../pages/reports/basicReports/BasicReportsPage");
 
 describe("Basic Reports Filters Test Suite", () => {
   const basicReportsPage = new BasicReportsPage();
@@ -114,6 +114,65 @@ describe("Basic Reports Filters Test Suite", () => {
               JSON.stringify(baselineValues),
             );
           });
+        });
+      });
+    });
+  });
+
+  describe("Unit - Students Filters", () => {
+    beforeEach(() => {
+      cy.intercept("GET", "**/api/admin/reports/basic-student/**").as(
+        "getPageLoad",
+      );
+      basicReportsPage.visit();
+      basicReportsPage.navigateToUnitStudents();
+      cy.wait("@getPageLoad");
+    });
+
+    it("should apply filters correctly for Unit - Students", () => {
+      cy.intercept("GET", "**/api/admin/reports/basic-student/**").as(
+        "afterFilter",
+      );
+
+      basicReportsPage.captureStudentCardValues().then((beforeCards) => {
+        basicReportsPage.captureChartLegendValues().then((beforeCharts) => {
+          const { country, school, counsellor, ...unitStudentsFilterData } =
+            filterData;
+          basicReportsPage.applyFilters(unitStudentsFilterData);
+          cy.wait("@afterFilter");
+
+          basicReportsPage.captureStudentCardValues().then((afterCards) => {
+            expect(JSON.stringify(afterCards)).not.to.eq(
+              JSON.stringify(beforeCards),
+            );
+          });
+        });
+      });
+    });
+
+    it("should reset filters and restore original values", () => {
+      basicReportsPage.captureStudentCardValues().then((baselineCards) => {
+        cy.intercept("GET", "**/api/admin/reports/basic-student/**").as(
+          "afterFilter",
+        );
+
+        const { country, school, counsellor, ...unitStudentsFilterData } =
+          filterData;
+        basicReportsPage.applyFilters(unitStudentsFilterData);
+        cy.wait("@afterFilter");
+
+        basicReportsPage.reset();
+
+        // Wait until a known baseline value reappears
+        cy.contains(
+          '[id$="-content-unit-students"] .text-h1',
+          baselineCards["All Students"],
+        ).should("exist");
+
+        basicReportsPage.captureStudentCardValues().then((resetCards) => {
+          expect(JSON.stringify(resetCards)).to.eq(
+            JSON.stringify(baselineCards),
+          );
         });
       });
     });
