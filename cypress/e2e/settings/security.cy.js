@@ -9,7 +9,7 @@ describe('User Settings Security - Reset Failed Validation', () => {
         settingsPage.waitForTable();
     });
 
-    it('should_fill_apply_notes_and_verify_reset_failed', () => {
+    it('should fill apply notes and verify reset failed', () => {
         cy.fixture('settings/security.fixture.json').then((apiData) => {
             settingsPage.openSettings();
             settingsPage.goToProfile();

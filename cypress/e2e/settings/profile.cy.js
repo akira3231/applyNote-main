@@ -9,7 +9,7 @@ describe('User Settings Profile', () => {
     settingsPage.waitForTable();
   });
 
-  it('should_update_user_profile', () => {
+  it('should update user profile', () => {
     cy.fixture('settings/profile.fixture.json').then((profileData) => {
       settingsPage.openSettings();
       settingsPage.goToProfile();

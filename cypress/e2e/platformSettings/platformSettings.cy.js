@@ -9,7 +9,7 @@ describe('Platform Settings Update', () => {
         platformSettingsPage.waitForTable();
     });
 
-    it('should_update_platform_settings_and_verify_success', () => {
+    it('should update platform settings and verify success', () => {
         cy.fixture('platformSettings/platform.fixture.json').then((platformData) => {
             platformSettingsPage.openSettings();
             platformSettingsPage.goToPlatformSettings();
