@@ -282,6 +282,23 @@ class BaseTablePage {
       }
     });
   }
+
+  openFilter() {
+    cy.contains("button", "Filter").click();
+  }
+
+  applyFilter(filterData) {
+    this.openFilter();
+    this.filter.applyFilters(filterData);
+    this.waitForTable();
+  }
+
+  resetFilters() {
+    this.openFilter();
+    this.filter.reset();
+    this.filter.applyBtn.click();
+    this.waitForTable();
+  }
 }
 
 module.exports = BaseTablePage;
